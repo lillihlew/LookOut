@@ -1,3 +1,4 @@
+
 import { Text, View, StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
 import ImageViewer from '@/components/ImageViewer';
@@ -9,41 +10,30 @@ import CircleButton from '@/components/CircleButton';
 import { useRouter, Stack, Link} from 'expo-router';
 
 
-const PlaceholderImage = require('@/assets/images/emoji3.png');
+
 
 export default function Index() {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const router = useRouter();
   
-  const goToSignIn = async () => {
-
-    router.push('/SignIn');
-  };
-  const goToCreateAccount = async () => {
-
-    router.push('/CreateAccount');
+  const goToHome = async () => {
+    router.push('/(tabs)/Home');
   };
 
-  const signIn = goToSignIn; //UPDATE this to use sign in stuff later
-  const createAccount = goToCreateAccount; //ALSO UPDATE THIS  with create account stuff later
+  
+  const createAccount = goToHome; //ALSO UPDATE THIS  with create account stuff later
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage} />
-      </View>
-      
+     
+    
     <View style={styles.footerContainer}>
-       <><Text style={styles.textWhite}>Welcome to LookOut!</Text><Text style={styles.textBlue}>Explore your everyday surroundings today!</Text></> 
       <Button 
-        onPress={signIn}
-        theme="primary" 
-        label="Sign in" />
-      <Button 
-        label="Create Account" 
         onPress={createAccount}
-         />
+        theme="primary" 
+        label="Create Account" />
+     
     </View>
 
   </View>

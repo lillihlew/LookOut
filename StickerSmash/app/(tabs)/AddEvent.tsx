@@ -53,7 +53,7 @@ export default function Index() {
        </View>
       ) : (
     <View style={styles.footerContainer}>
-       <><Text style={styles.textWhite}>Welcome to LookOut!</Text><Text style={styles.textBlue}>Look out into your everyday surroundings!!</Text><Text style={styles.textBlue}>Explore Your sorroundings today!</Text></> 
+       <><Text style={styles.textWhite}>Upload your image!</Text></> 
       <Button 
         onPress={pickImageAsync}
         theme="primary" 
