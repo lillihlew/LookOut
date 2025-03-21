@@ -1,24 +1,25 @@
 import { Stack } from 'expo-router';
 import { LogBox } from "react-native";
 import {StatusBar} from "expo-status-bar"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 LogBox.ignoreAllLogs(false); //COME BACK AND SWITCH TO TRUE BEFORE RELEASING
 
 export default function RootLayout() {
   return (
-    <>
-    <StatusBar style = "light" /> 
-      <Stack>
-        <Stack.Screen 
-          name="(tabs)" 
-          options={{ 
-            headerShown: false, 
-          }} 
-        />
-        <Stack.Screen 
-          name="+not-found"
+    <GestureHandlerRootView style = {{ flex: 1}}>
+      <StatusBar style = "light" /> 
+        <Stack>
+          <Stack.Screen 
+            name="(tabs)" 
+            options={{ 
+              headerShown: false, 
+            }} 
           />
-      </Stack>
-    </>
+          <Stack.Screen 
+            name="+not-found"
+            />
+        </Stack>
+    </GestureHandlerRootView>
   );
 }
