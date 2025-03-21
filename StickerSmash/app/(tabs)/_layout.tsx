@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, AntDesign, Zocial } from '@expo/vector-icons';
 
 export default function TabsLayout() {
   return (
@@ -18,24 +18,48 @@ export default function TabsLayout() {
     >
 
       <Tabs.Screen 
-        name="index" 
+        name="Home" 
         options={{ 
-          headerTitle: 'Home',
+          headerTitle: 'Discovery',
           tabBarIcon: ({focused, color}) => (
-            <Ionicons 
-                name ={focused ? "home-sharp" : "home-outline"} 
+            <Zocial 
+                name ={focused ? "eventasaurus" : "eventasaurus"} 
                 color={color}
                 size = {30} 
             />
           ),
         }} />
       <Tabs.Screen 
-        name="about" 
+        name="Favorites" 
         options={{ 
-          headerTitle: 'About',
+          headerTitle: 'Favorites',
           tabBarIcon: ({focused, color}) => (
             <Ionicons 
-                name={focused ? 'information-circle' : 'information-circle-outline'} 
+                name={focused ? 'heart' : 'heart-outline'} 
+                color={color} 
+                size={24}
+            />
+          ),
+        }} />
+      <Tabs.Screen 
+        name="AddEvent" 
+        options={{ 
+          headerTitle: 'Add New Event',
+          tabBarIcon: ({focused, color}) => (
+            <AntDesign 
+                name={focused ? 'pluscircle' : 'pluscircleo'} 
+                color={color} 
+                size={24}
+            />
+          ),
+        }} />
+      <Tabs.Screen 
+        name="Profile" 
+        options={{ 
+          headerTitle: 'Profile',
+          tabBarIcon: ({focused, color}) => (
+            <FontAwesome5 
+                name={focused ? 'user-alt' : 'user'} 
                 color={color} 
                 size={24}
             />
