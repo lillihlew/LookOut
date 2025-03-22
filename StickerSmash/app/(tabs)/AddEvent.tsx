@@ -13,6 +13,7 @@ import * as MediaLibrary from 'expo-media-library';
 import React, { useState, useRef, useEffect } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import domtoimage from "dom-to-image";
+import OurTextInput from '@/components/OurTextInput';
 
 
 const PlaceholderImage = require('@/assets/images/background-image.png');
@@ -122,6 +123,8 @@ export default function Index() {
     <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
       <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />    
     </EmojiPicker>
+
+    <OurTextInput></OurTextInput>
 
   </View>
   );
