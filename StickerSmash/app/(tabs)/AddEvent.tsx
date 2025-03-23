@@ -100,15 +100,17 @@ export default function Index() {
     <View style={styles.container}>
       <View ref= {imageRef} style={styles.imageContainer}>
         <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage} />
-        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        {/* {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />} */}
       </View>
       {showAppOptions ? (
          <View style={styles.optionsContainer}>
-         <View style={styles.optionsRow}>
+         {/* <View style={styles.optionsRow}>
            <IconButton icon="refresh" label="Reset" onPress={onReset} />
            <CircleButton onPress={onAddSticker} />
            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
-         </View>
+         </View> */}
+         <OurTextInput></OurTextInput>
+
        </View>
       ) : (
     <View style={styles.footerContainer}>
@@ -120,11 +122,9 @@ export default function Index() {
       <Button label="Use this photo" onPress={() => setShowAppOptions(true)} />
     </View>
       )}
-    <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+    {/* <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
       <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />    
-    </EmojiPicker>
-
-    <OurTextInput></OurTextInput>
+    </EmojiPicker> */}
 
   </View>
   );
