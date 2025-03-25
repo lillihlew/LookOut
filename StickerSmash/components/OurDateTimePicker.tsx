@@ -4,6 +4,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTime from '@/components/DateTime';
 
 const OurDateTimePicker = () => {
+
+  const today=new Date();
     const [date, setDate] = useState(new Date());
     const [eventDate, setEventDate] = useState("");
     const [showPicker, setShowPicker] = useState(false);
@@ -38,6 +40,7 @@ const OurDateTimePicker = () => {
           onPress={toggleDatePicker} 
           color = "green"
           />
+          
         
         {showPicker && (<DateTimePicker //doing showPicker && so that it'll only show when we want it to
                     mode = "date"
@@ -45,7 +48,7 @@ const OurDateTimePicker = () => {
                     value = {date}
                     onChange={onChange}
                     style = {styles.datePicker}
-                    minimumDate={date}
+                    minimumDate={today}
                     //maybe make a function to make max date be a year from today or something
                   />
                   )}
