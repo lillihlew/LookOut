@@ -1,20 +1,20 @@
-import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import ImageViewer from '@/components/ImageViewer';
 import Button from '@/components/Button';
 import * as ImagePicker from "expo-image-picker";
-import IconButton from '@/components/IconButton';
-import CircleButton from '@/components/CircleButton';
-import EmojiPicker from '@/components/EmojiPicker';
+// import IconButton from '@/components/IconButton';
+// import CircleButton from '@/components/CircleButton';
+// import EmojiPicker from '@/components/EmojiPicker';
 import { type ImageSource } from 'expo-image';
-import EmojiList from '@/components/EmojiList';
-import EmojiSticker from '@/components/EmojiSticker';
+// import EmojiList from '@/components/EmojiList';
+// import EmojiSticker from '@/components/EmojiSticker';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useState, useRef, useEffect } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import domtoimage from "dom-to-image";
 import OurTextInput from '@/components/OurTextInput';
-
+import OurDateTimePicker from '@/components/OurDateTimePicker';
 
 const PlaceholderImage = require('@/assets/images/background-image.png');
 
@@ -28,7 +28,7 @@ export default function Index() {
   const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(undefined);
   const [eventTitle, setEventTitle] = useState('');
   const [eventDescription, setEventDescription] = useState('');
-
+  
 
   useEffect(() =>{
     if(permissionResponse?.granted){
@@ -61,6 +61,18 @@ export default function Index() {
   const onModalClose = () => {
     setIsModalVisible(false);
   };
+
+  
+
+  // const formatDate = (rawDate) => {
+  //   let date = new Date(rawDate);
+  //   let year = date.getFullYear();
+  //   let month = date.getMonth() + 1;
+  //   let day = date.getDate();
+  //   return day + "/" + month + "/" + year;
+  // }
+
+  
 
   const onSaveImageAsync = async () => {
     if(Platform.OS === "web"){
@@ -110,6 +122,8 @@ export default function Index() {
            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
          </View> */}
          <OurTextInput></OurTextInput>
+         
+         <OurDateTimePicker></OurDateTimePicker>
 
        </View>
       ) : (
@@ -169,4 +183,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  datePicker: {
+    height: 120,
+    marginTop: -10,
+  },
+  dateButton: {
+    height: 50,
+    justifyContent: "center", 
+    alignItems: "center",
+    borderRadius: 50,
+    marginTop: 10,
+    marginBottom: 15,
+    backgroundColor: "#075985",
+  },
+  pickerButton: {
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#fff"
+  }
 });
