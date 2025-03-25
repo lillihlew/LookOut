@@ -1,0 +1,3 @@
+for date time : 
+- https://www.youtube.com/watch?v=UEfFjfW7Zes
+- https://docs.expo.dev/versions/latest/sdk/date-time-picker/

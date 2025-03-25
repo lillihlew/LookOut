@@ -1,19 +1,20 @@
-import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import ImageViewer from '@/components/ImageViewer';
 import Button from '@/components/Button';
 import * as ImagePicker from "expo-image-picker";
-import IconButton from '@/components/IconButton';
-import CircleButton from '@/components/CircleButton';
-import EmojiPicker from '@/components/EmojiPicker';
+// import IconButton from '@/components/IconButton';
+// import CircleButton from '@/components/CircleButton';
+// import EmojiPicker from '@/components/EmojiPicker';
 import { type ImageSource } from 'expo-image';
-import EmojiList from '@/components/EmojiList';
-import EmojiSticker from '@/components/EmojiSticker';
+// import EmojiList from '@/components/EmojiList';
+// import EmojiSticker from '@/components/EmojiSticker';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useState, useRef, useEffect } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import domtoimage from "dom-to-image";
-
+import OurTextInput from '@/components/OurTextInput';
+import OurDateTimePicker from '@/components/OurDateTimePicker';
 
 const PlaceholderImage = require('@/assets/images/background-image.png');
 
@@ -23,10 +24,11 @@ export default function Index() {
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(undefined);
+  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  // const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(undefined);
   const [eventTitle, setEventTitle] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+  const [usingDateScreen, setUsingDateScreen] = useState<boolean>(false);
 
 
   useEffect(() =>{
@@ -49,17 +51,32 @@ export default function Index() {
       alert('You did not select any image.');
     }
   };
-  const onReset = () => {
-    setShowAppOptions(false);
-  };
+  // const onReset = () => {
+  //   setShowAppOptions(false);
+  // };
 
-  const onAddSticker = () => {
-    setIsModalVisible(true);
-  };
+  // const onAddSticker = () => {
+  //   setIsModalVisible(true);
+  // };
 
-  const onModalClose = () => {
-    setIsModalVisible(false);
-  };
+  // const onModalClose = () => {
+  //   setIsModalVisible(false);
+  // };
+
+  
+  const toggleDateScreen = () => {
+    setUsingDateScreen(!usingDateScreen);
+    }
+
+  // const formatDate = (rawDate) => {
+  //   let date = new Date(rawDate);
+  //   let year = date.getFullYear();
+  //   let month = date.getMonth() + 1;
+  //   let day = date.getDate();
+  //   return day + "/" + month + "/" + year;
+  // }
+
+  
 
   const onSaveImageAsync = async () => {
     if(Platform.OS === "web"){
@@ -96,19 +113,22 @@ export default function Index() {
   };
   
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <View ref= {imageRef} style={styles.imageContainer}>
         <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage} />
-        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        {/* {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />} */}
       </View>
       {showAppOptions ? (
-         <View style={styles.optionsContainer}>
-         <View style={styles.optionsRow}>
+        <View style={styles.optionsContainer}>
+         {/* <View style={styles.optionsRow}>
            <IconButton icon="refresh" label="Reset" onPress={onReset} />
            <CircleButton onPress={onAddSticker} />
            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
-         </View>
-       </View>
+         </View> */}
+         <OurTextInput></OurTextInput>
+        
+         <OurDateTimePicker></OurDateTimePicker>
+        </View>
       ) : (
     <View style={styles.footerContainer}>
        <><Text style={styles.textWhite}>Upload your image!</Text></> 
@@ -119,16 +139,10 @@ export default function Index() {
       <Button label="Use this photo" onPress={() => setShowAppOptions(true)} />
     </View>
       )}
-    <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+    {/* <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
       <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />    
-    </EmojiPicker>
-    <TextField
-    label="Input Title"
-    variants="outlined"
-    value={eventTitle}
-    onChange={(e: { target: { value: any; }; })=> setEventTitle(String(e.target.value))}
+    </EmojiPicker> */}
 
-    />
   </View>
   );
 }
@@ -172,4 +186,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  datePicker: {
+    height: 120,
+    marginTop: -10,
+  },
+  dateButton: {
+    height: 50,
+    justifyContent: "center", 
+    alignItems: "center",
+    borderRadius: 50,
+    marginTop: 10,
+    marginBottom: 15,
+    backgroundColor: "#075985",
+  },
+  pickerButton: {
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#fff"
+  }
 });
