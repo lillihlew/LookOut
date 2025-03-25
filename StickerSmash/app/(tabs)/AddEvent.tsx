@@ -122,7 +122,13 @@ export default function Index() {
     <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
       <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />    
     </EmojiPicker>
+    <TextField
+    label="Input Title"
+    variants="outlined"
+    value={eventTitle}
+    onChange={(e: { target: { value: any; }; })=> setEventTitle(String(e.target.value))}
 
+    />
   </View>
   );
 }
