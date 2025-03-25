@@ -12,7 +12,7 @@ const OurDateTimePicker = () => {
         setShowPicker(!showPicker);
       }
     
-    const onChange = ({type}, selectedDate) => {
+    const onChange = ({type}: any, selectedDate: any) => {
       if (type == "set") {
         const currentDate = selectedDate;
         setDate(currentDate);
