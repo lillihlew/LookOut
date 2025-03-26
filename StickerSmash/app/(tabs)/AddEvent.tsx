@@ -9,16 +9,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import domtoimage from "dom-to-image";
 import OurTextInput from '@/components/OurTextInput';
-import OurDateTimePicker from '@/components/OurDateTimePicker';
+import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
+import WebDateTimePicker from '@/components/WebDateTimePicker';
+
 
 export default function Index() {
   const [eventTitle, setEventTitle] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [usingImage, setUsingImage] = useState<boolean>(false);
   const [usingNothing, setUsingNothing] = useState<boolean>(true);
-  const [usingDate, setUsingDate] = useState<boolean>(false);
+  const [usingDateMobile, setUsingDateMobile] = useState<boolean>(false);
+  const [usingDateWeb, setUsingDateWeb] = useState<boolean>(false);
   const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
   
     
@@ -26,9 +29,13 @@ export default function Index() {
     setUsingImage(!usingImage);
   }
 
-  const toggleUsingDate = () => {
-    setUsingDate(!usingDate);
-}
+  const toggleUsingDateMobile = () => {
+    setUsingDateMobile(!usingDateMobile);
+  }
+
+  const toggleUsingDateWeb = () => {
+    setUsingDateWeb(!usingDateWeb);
+  }
 
   const toggleUsingNothing = () => {
     setUsingNothing(!usingNothing);
@@ -51,10 +58,14 @@ export default function Index() {
                 toggleUsingNothing();
                 console.log("image button pressed");}}/>
           <Button
-              label ="Add a date"
+              label ="Choose date & time"
               theme = "primary"
               onPress={() => {
-                toggleUsingDate();
+                if(Platform.OS === "web"){
+                  toggleUsingDateWeb();
+                }else{
+                  toggleUsingDateMobile();
+                }
                 toggleUsingNothing();
               }}/>
           <PublicOrPrivate/>
@@ -85,20 +96,39 @@ export default function Index() {
               </View>
             </View>
             ):(
-              <View>
-                {/*Using a date*/}
-                {usingDate ? (
-                  <View style = {styles.container}>
-                    <OurDateTimePicker/>
-                    <Button
-                      onPress={() =>{
-                        toggleUsingDate();
-                        toggleUsingNothing();}}
-                      theme = "primary"
-                      label="Done" />
-                  </View>
-              ):(<View/>)}
-              </View>
+            <View>
+              {/*Using a date, specifically ios/android*/}
+              {usingDateMobile ? (
+                <View style = {styles.container}>
+                  <MobileDateTimePicker/>
+                  <Button
+                    onPress={() =>{
+                      if(Platform.OS === "web"){
+                        toggleUsingDateWeb();
+                      }else{
+                        toggleUsingDateMobile();
+                      }
+                      toggleUsingNothing();}}
+                    theme = "primary"
+                    label="Done" />
+                </View>
+              ):(
+                <View style = {styles.container}>
+                  {/*Using a date, specifically web (idk if windows will work with this but if we want to include we can)*/}
+                  <WebDateTimePicker/>
+                  <Button
+                    onPress={() =>{
+                      if(Platform.OS === "web"){
+                        toggleUsingDateWeb();
+                      }else{
+                        toggleUsingDateMobile();
+                      }
+                      toggleUsingNothing();}}
+                    theme = "primary"
+                    label="Done" />
+                </View>
+              )}
+            </View>
             )}
         </View>
         )}

@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTime from '@/components/DateTime';
 
-const OurDateTimePicker = () => {
+const OurDatePicker = () => {
+
+  //OLD ONE THAT DOESN'T DO TIME
 
   const today=new Date();
     const [date, setDate] = useState(new Date());
@@ -131,4 +133,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default OurDateTimePicker;
+export default OurDatePicker;
