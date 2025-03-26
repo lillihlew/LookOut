@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {StyleSheet, Button, TextInput, View, Text} from "react-native";
-//https://www.youtube.com/watch?v=8PaVhXt_DiA
+
 const OurTextInput = () => {
     const [titleText, setTitleText] = useState();
     const [typedTitleText, setTypedTitleText] = useState();

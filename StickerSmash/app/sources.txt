@@ -1,3 +1,12 @@
 for date time : 
 - https://www.youtube.com/watch?v=UEfFjfW7Zes
 - https://docs.expo.dev/versions/latest/sdk/date-time-picker/
+
+General functions : 
+- https://stackoverflow.com/questions/52250061/react-native-how-to-call-multiple-functions-when-onpress-is-clicked
+
+Entire Expo demo app: 
+- https://docs.expo.dev/tutorial/introduction/
+
+text input: 
+- //https://www.youtube.com/watch?v=8PaVhXt_DiA

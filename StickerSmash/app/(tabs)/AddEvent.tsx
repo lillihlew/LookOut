@@ -10,6 +10,8 @@ import { captureRef } from 'react-native-view-shot';
 import domtoimage from "dom-to-image";
 import OurTextInput from '@/components/OurTextInput';
 import OurDateTimePicker from '@/components/OurDateTimePicker';
+import OurImageViewer from '@/components/OurImageViewer';
+import PublicOrPrivate from '@/components/PublicOrPrivate';
 
 export default function Index() {
   const [eventTitle, setEventTitle] = useState('');
@@ -17,65 +19,90 @@ export default function Index() {
   const [usingImage, setUsingImage] = useState<boolean>(false);
   const [usingNothing, setUsingNothing] = useState<boolean>(true);
   const [usingDate, setUsingDate] = useState<boolean>(false);
+  const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
   
     
   const toggleUsingImage = () => {
-      setUsingImage(!usingImage);
-      toggleUsingNothing;
+    setUsingImage(!usingImage);
   }
 
   const toggleUsingDate = () => {
     setUsingDate(!usingDate);
-    toggleUsingNothing;
 }
 
   const toggleUsingNothing = () => {
     setUsingNothing(!usingNothing);
   }
+
+  const togglePhotoButtonLabel = () => {
+    setPhotoButtonLabel("Change Photo");
+  }
   
   return (
-    <View style={styles.container}> 
-      <View>
-
+    <View style = {styles.container}>
         {/*Using no extra screens*/}
-        {usingNothing && (<View style={styles.optionsContainer}>
+        {usingNothing ? (
+          <View style={styles.container}>
+            <Button
+              label = {photoButtonLabel}
+              theme = "primary"
+              onPress={() => {
+                toggleUsingImage();
+                toggleUsingNothing();
+                console.log("image button pressed");}}/>
           <Button
-            label ="Add a photo"
-            theme = "primary"
-            onPress={() => {
-              toggleUsingImage
-              toggleUsingNothing}}/>
-         <OurTextInput></OurTextInput>
-         <Button
-            label ="Add a date"
-            theme = "primary"
-            onPress={() => {
-              toggleUsingDate
-              toggleUsingNothing}}/>
-        </View>)}
+              label ="Add a date"
+              theme = "primary"
+              onPress={() => {
+                toggleUsingDate();
+                toggleUsingNothing();
+              }}/>
+          <PublicOrPrivate/>
+          <OurTextInput/>
+        </View>
 
-        {/*Using an image*/}
-        {usingImage && (<View style = {styles.optionsContainer}>
-          <OurTextInput></OurTextInput>
-        </View>)}
+        ):(
         
-        {/*Using a date*/}
-        {usingDate && (<View style = {styles.optionsContainer}>
-          <OurDateTimePicker></OurDateTimePicker>
-        </View>)}
-
-      </View>
-    
-      {/* <Button label="Use this photo" onPress={() => setShowAppOptions(true)} /> */}
-      {/* <Button 
-        onPress = {toggleUsingImage}
-        theme = "primary"
-        label= "Hide image" />
-      <Button label = "show image" onPress={() => toggleUsingImage}/> */}
-        
-   
-    
-  </View>
+        <View>
+          {/*Using an image*/}
+          {usingImage ? (
+            <View style = {styles.container}>
+              <View style = {styles.imageContainer}>
+                <OurImageViewer/>
+              </View>
+              <View style = {styles.footerContainer}> 
+                <View style = {styles.footerTopButton}/>
+                <View style = {styles.footerBottomButton}>
+                  <Button 
+                    onPress={() =>{
+                      toggleUsingImage();
+                      toggleUsingNothing();
+                      togglePhotoButtonLabel();
+                    }}
+                    theme = "primary"
+                    label="Done" />
+                  </View>
+              </View>
+            </View>
+            ):(
+              <View>
+                {/*Using a date*/}
+                {usingDate ? (
+                  <View style = {styles.container}>
+                    <OurDateTimePicker/>
+                    <Button
+                      onPress={() =>{
+                        toggleUsingDate();
+                        toggleUsingNothing();}}
+                      theme = "primary"
+                      label="Done" />
+                  </View>
+              ):(<View/>)}
+              </View>
+            )}
+        </View>
+        )}
+    </View>
   )
 }
 
@@ -85,7 +112,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#25292e',
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
   textWhite: {
     color: '#fff',
@@ -99,7 +125,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   imageContainer: {
-    flex: 1,
+    flex: 7,
   },
   image: {
     width: 320,
@@ -107,17 +133,27 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   footerContainer: {
-    flex: 1 / 3,
+    flex: 1/2,
     alignItems: 'center',
   },
-  optionsContainer: {
-    position: 'absolute',
-    bottom: 80,
-  },
-  optionsRow: {
+  footerTopButton: {
+    flex: .5,
     alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: 'center',
   },
+  footerBottomButton: {
+    flex: .5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // optionsContainer: {
+  //   position: 'absolute',
+  //   bottom: 80,
+  // },
+  // optionsRow: {
+  //   alignItems: 'center',
+  //   flexDirection: 'row',
+  // },
   datePicker: {
     height: 120,
     marginTop: -10,

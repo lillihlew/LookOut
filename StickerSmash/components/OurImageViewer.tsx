@@ -16,17 +16,19 @@ const OurImageViewer = () => {
     const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     // const [showAppOptions, setShowAppOptions] = useState<boolean>(false); //here
-    const [usingImage, setUsingImage] = useState<boolean>(true);
+    const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
+      
     
     useEffect(() =>{
         if(permissionResponse?.granted){
             requestPermission();
         }
-        }, [])
+    }, [])
 
-    const toggleUsingImage = () => {
-        setUsingImage(!usingImage);
+    const togglePhotoButtonLabel = () => {
+        setPhotoButtonLabel("Change Photo");
     }
+
 
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,62 +39,35 @@ const OurImageViewer = () => {
     
         if (!result.canceled) {
           setSelectedImage(result.assets[0].uri);
-          // setShowAppOptions(true); //here
+          togglePhotoButtonLabel();
+        //   setShowAppOptions(true); //here
         } else {
           alert('You did not select any image.');
         }
       };
 
-    //not using this now but we're keeping it for later so we can save the image to the event
-    const onSaveImageAsync = async () => {
-        if(Platform.OS === "web"){
-        try {
-            //@ts-ignore
-            const dataUrl = await domtoimage.toJpeg(imageRef.current, {
-            quality: 0.95,
-            width: 320,
-            height: 440,
-            });
-
-            let link = document.createElement('a');
-            link.download = 'sticker-smash.jpeg';
-            link.href = dataUrl;
-            link.click();
-        } catch (e) {
-            console.log(e);
-        }
-        } else {
-        try {
-            const localUri = await captureRef(imageRef, {
-            height: 440,
-            quality: 1,
-            });
-    
-            await MediaLibrary.saveToLibraryAsync(localUri);
-            if (localUri) {
-            alert('Saved!');
-            }
-        } catch (e) {
-            console.log(e);
-        }
-        }
-    };
-
     return (
-        <View>
+        <View style = {styles.container}>
             <View ref= {imageRef} style={styles.imageContainer}>
-                <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage} />
+                <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage}/>
             </View>
             <View style={styles.footerContainer}>
-                <Text style={styles.textWhite}>Upload your image!</Text> 
-                <Button 
-                    onPress={pickImageAsync}
-                    theme="primary" 
-                    label="Choose a photo" />
+                <View style = {styles.footerTopButton}>
+                    <Text style={styles.textWhite}>Upload your image!</Text> 
+                    <Button 
+                        onPress={pickImageAsync}
+                        theme="primary" 
+                        label={photoButtonLabel} />
+                </View>
+                <View style = {styles.footerBottomButton}>
+                </View>
             </View>
         </View>
     )
 }
+
+
+export default OurImageViewer;
 
 const styles = StyleSheet.create({
     container: {
@@ -114,7 +89,9 @@ const styles = StyleSheet.create({
       color: '#fff',
     },
     imageContainer: {
-      flex: 1,
+      flex: 8,
+      alignItems: 'center', 
+      justifyContent: 'center',
     },
     image: {
       width: 320,
@@ -122,8 +99,19 @@ const styles = StyleSheet.create({
       borderRadius: 18,
     },
     footerContainer: {
-      flex: 1 / 3,
+      flex: 1,
       alignItems: 'center',
+      justifyContent: 'center',
+    },
+    footerTopButton: {
+        flex: .5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    footerBottomButton: {
+        flex: .5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     optionsContainer: {
       position: 'absolute',
@@ -155,3 +143,39 @@ const styles = StyleSheet.create({
       color: "#fff"
     },
 })
+
+
+//not using this now but we're keeping it for later so we can save the image to the event (it went just before return)
+    // const onSaveImageAsync = async () => {
+    //     if(Platform.OS === "web"){
+    //     try {
+    //         //@ts-ignore
+    //         const dataUrl = await domtoimage.toJpeg(imageRef.current, {
+    //         quality: 0.95,
+    //         width: 320,
+    //         height: 440,
+    //         });
+
+    //         let link = document.createElement('a');
+    //         link.download = 'sticker-smash.jpeg';
+    //         link.href = dataUrl;
+    //         link.click();
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    //     } else {
+    //     try {
+    //         const localUri = await captureRef(imageRef, {
+    //         height: 440,
+    //         quality: 1,
+    //         });
+    
+    //         await MediaLibrary.saveToLibraryAsync(localUri);
+    //         if (localUri) {
+    //         alert('Saved!');
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    //     }
+    // };

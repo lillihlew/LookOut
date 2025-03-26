@@ -3,45 +3,48 @@ import {StyleSheet, Button, TextInput, View, Text} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
 const PublicOrPrivate = () => {
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
+    const [privacySettingOn, setPrivacySetting] = useState<boolean>(false);
+    const [privacyLabel, setPrivacyLabel] = useState<string>("Make Private");
+    const [text, setText] = useState<string>("Public");
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
-        setShow(false);
-        setDate(currentDate);
-    };
+    const togglePrivacySettings = () => {
+        setPrivacySetting(!privacySettingOn);
+        toggleText();
+        if(privacySettingOn){
+            setPrivacyLabel("Make Private");
+        }else{
+            setPrivacyLabel("Make Public");
+        }
+        
+    }
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
-
-    const showDatepicker = () => {
-        showMode('date');
-    };
-
-    const showTimepicker = () => {
-        showMode('time');
-    };
+    const toggleText = () => {
+        if(privacySettingOn){
+            setText("Public");
+        }else{
+           setText("Private");
+        }
+    }
 
     return (
-        <SafeAreaView>
-        <Button onPress={showDatepicker} title="Show date picker!" />
-        <Button onPress={showTimepicker} title="Show time picker!" />
-        <Text>selected: {date.toLocaleString()}</Text>
-        {show && (
-            <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            onChange={onChange}
-            />
-        )}
-        </SafeAreaView>
+        <View style = {styles.button}>
+            <Button
+                title = {privacyLabel}
+                onPress = {togglePrivacySettings}
+                >
+            </Button>
+            <Text>{text}</Text>
+        </View>
     );
 };
 
-export default publicOrPrivate;
+const styles = StyleSheet.create({
+    button:{
+        width: 350,
+        marginBottom: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    }
+})
+
+export default PublicOrPrivate;
