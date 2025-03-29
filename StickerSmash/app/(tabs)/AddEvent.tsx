@@ -14,6 +14,10 @@ import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
 import * as SQLite from 'expo-sqlite';
+import { initDB, saveEventToSQLite } from '@/utils/database';
+
+
+
 
 
 export default function Index() {
@@ -65,7 +69,15 @@ export default function Index() {
 
   const toggleWorking = () =>{
     setWorking(!working);
+
+    
   }
+  let db: any = null;
+
+
+if (Platform.OS !== 'web') {
+  db = SQLite.openDatabaseSync('events.db');
+}
   
   return (
     <View style = {styles.container}>
@@ -201,8 +213,13 @@ export default function Index() {
           theme = "primary"
           onPress={() =>{
             if(selectedTitle && selectedDescription && selectedImage && selectedDate){
-              //save event to data & post to home
-              
+              saveEventToSQLite(
+                selectedTitle,
+                selectedDescription,
+                selectedImage,
+                selectedDate.toISOString(),
+                selectedPrivacyOn
+              );
             }else{
               let missing = "Missing: \n";
               if (!selectedTitle) missing = missing + " Title \n";

@@ -16,7 +16,7 @@ const ProfileScreen = () => {
     { id: 4, title: 'Study Sesh', attendees: 5 },
   ]);
 
-  const renderCard = ({ item }) => (
+  const renderCard = ({ item }: any) => (
     <View style={styles.card}>
       <Text style={styles.cardTitle}>{item.title}</Text>
       <Text style={styles.attendees}>{item.attendees} going</Text>
