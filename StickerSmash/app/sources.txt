@@ -2,6 +2,13 @@ for date time :
 - https://www.youtube.com/watch?v=UEfFjfW7Zes
 - https://docs.expo.dev/versions/latest/sdk/date-time-picker/
 - https://www.youtube.com/watch?v=nZwrxeUHtOQ
+- https://www.npmjs.com/package/@react-native-community/datetimepicker
+- https://docs.expo.dev/versions/latest/sdk/date-time-picker/
+- https://github.com/react-native-datetimepicker/datetimepicker#getting-started
+- https://www.youtube.com/watch?v=UEfFjfW7Zes
+- https://www.youtube.com/watch?v=nZwrxeUHtOQ
+- https://github.com/chelseafarley/DateTimePickerTutorialReactNative/blob/main/App.js
+- https://stackoverflow.com/questions/32946793/react-native-textinput-that-only-accepts-numeric-characters
 
 General functions : 
 - https://stackoverflow.com/questions/52250061/react-native-how-to-call-multiple-functions-when-onpress-is-clicked
@@ -11,3 +18,10 @@ Entire Expo demo app:
 
 text input: 
 - //https://www.youtube.com/watch?v=8PaVhXt_DiA
+
+Sharing data across files:
+- https://stackoverflow.com/questions/73068661/how-to-use-variables-across-files-in-react-js/73071778#73071778
+- https://www.youtube.com/watch?v=oBAOr1OswkQ
+- https://www.youtube.com/watch?v=-40TBdSRk6E
+- https://www.geeksforgeeks.org/how-to-pass-data-from-one-component-to-other-component-in-reactjs/
+- https://www.dhiwise.com/post/the-ultimate-guide-to-react-export-multiple-functions
