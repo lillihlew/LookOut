@@ -1,40 +1,36 @@
 import React, {useState} from "react";
 import {StyleSheet, Button, TextInput, View, Text} from "react-native";
 
-const OurTextInput = () => {
-    const [titleText, setTitleText] = useState();
-    const [typedTitleText, setTypedTitleText] = useState();
-    const [descriptionText, setDescriptionText] = useState();
-    const [typedDescriptionText, setTypedDescriptionText] = useState();
-    
-    const saveEventInfo = () =>{
-        setTypedTitleText(titleText);
-        setTypedDescriptionText(descriptionText);
-    }
 
+
+const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, setSelectedDescription}: any) => {
+    const [titleText, setTitleText] = useState();
+    const [descriptionText, setDescriptionText] = useState();
+ 
     return (
         <View> 
             <TextInput 
                 value={titleText}
-                onChangeText = {(newValue) => setTitleText(newValue)}
+                onChangeText = {(newValue) => {
+                    setTitleText(newValue); 
+                    setSelectedTitle(newValue);
+                }}
                 style = {styles.inputText}
                 placeholder = {"Enter your event title"}
                 placeholderTextColor = "green"
             />
             <TextInput 
                 value={descriptionText}
-                onChangeText = {(newValue) => setDescriptionText(newValue)}
+                onChangeText = {(newValue) => {
+                    setDescriptionText(newValue);
+                    setSelectedDescription(newValue);
+                }}
                 style = {styles.inputText}
                 placeholder = {"Enter your event description"}
                 placeholderTextColor = "green"
             />
-            <Button 
-                title = "Save event information" 
-                onPress={saveEventInfo} 
-                color = "green"
-            />
-            <Text> Event title: {typedTitleText} </Text>
-            <Text> Event description: {typedDescriptionText}</Text>
+            <Text> Event title: {titleText} </Text>
+            <Text> Event description: {descriptionText}</Text>
         </View>
     );
 }

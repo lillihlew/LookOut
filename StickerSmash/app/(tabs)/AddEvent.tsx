@@ -16,14 +16,27 @@ import WebDateTimePicker from '@/components/WebDateTimePicker';
 
 
 export default function Index() {
-  const [eventTitle, setEventTitle] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
+  //titles & descriptions
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [selectedDescription, setSelectedDescription] = useState('');
+
+  //images
   const [usingImage, setUsingImage] = useState<boolean>(false);
+  const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+
+  //control booleans
   const [usingNothing, setUsingNothing] = useState<boolean>(true);
   const [usingDateMobile, setUsingDateMobile] = useState<boolean>(false);
   const [usingDateWeb, setUsingDateWeb] = useState<boolean>(false);
-  const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
-  
+  const [working, setWorking] = useState<boolean>(true);
+
+  //dates
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [dateButtonLabel, setDateButtonLabel] = useState<string>("Choose Date & Time");
+ 
+  //privacy
+  const [selectedPrivacyOn, setSelectedPrivacyOn] = useState<boolean>(false);
     
   const toggleUsingImage = () => {
     setUsingImage(!usingImage);
@@ -44,94 +57,146 @@ export default function Index() {
   const togglePhotoButtonLabel = () => {
     setPhotoButtonLabel("Change Photo");
   }
+
+  const toggleDateButtonLabel = () => {
+    setDateButtonLabel("Change Date and Time");
+  }
+
+  const toggleWorking = () =>{
+    setWorking(!working);
+  }
   
   return (
     <View style = {styles.container}>
-        {/*Using no extra screens*/}
-        {usingNothing ? (
-          <View style={styles.container}>
-            <Button
-              label = {photoButtonLabel}
-              theme = "primary"
-              onPress={() => {
-                toggleUsingImage();
-                toggleUsingNothing();
-                console.log("image button pressed");}}/>
-          <Button
-              label ="Choose date & time"
-              theme = "primary"
-              onPress={() => {
-                if(Platform.OS === "web"){
-                  toggleUsingDateWeb();
-                }else{
-                  toggleUsingDateMobile();
-                }
-                toggleUsingNothing();
-              }}/>
-          <PublicOrPrivate/>
-          <OurTextInput/>
-        </View>
+      {/*Working still, not done*/}
+      {working ? ( <View style = {styles.container}>
+          {/*Using no extra screens*/}
+          {usingNothing ? (
+            <View style={styles.container}>
+              <Button
+                label = {photoButtonLabel}
+                theme = "primary"
+                onPress={() => {
+                  toggleUsingImage();
+                  toggleUsingNothing();}}/>
+              <Button
+                label ={dateButtonLabel}
+                theme = "primary"
+                onPress={() => {
+                  if(Platform.OS === "web"){
+                    toggleUsingDateWeb();
+                  }else{
+                    toggleUsingDateMobile();
+                  }
+                  toggleUsingNothing();
+                }}/>
+            <PublicOrPrivate
+              selectedPrivacyOn = {selectedPrivacyOn}
+              setSelectedPrivacyOn ={setSelectedPrivacyOn}
+              />
+            <OurTextInput
+              selectedTitle = {selectedTitle}
+              setSelectedTitle = {setSelectedTitle}
+              selectedDescription = {selectedDescription}
+              setSelectedDescription = {setSelectedDescription}/>
+            <Button 
+                label = "Review event information" 
+                theme = "primary"
+                onPress={() =>{
+                  console.log("selected privacy on save: ", selectedPrivacyOn);
+                  toggleWorking();
+                }}
+            />
+          </View>
 
-        ):(
-        
-        <View>
-          {/*Using an image*/}
-          {usingImage ? (
-            <View style = {styles.container}>
-              <View style = {styles.imageContainer}>
-                <OurImageViewer/>
-              </View>
-              <View style = {styles.footerContainer}> 
-                <View style = {styles.footerTopButton}/>
-                <View style = {styles.footerBottomButton}>
-                  <Button 
-                    onPress={() =>{
-                      toggleUsingImage();
-                      toggleUsingNothing();
-                      togglePhotoButtonLabel();
-                    }}
-                    theme = "primary"
-                    label="Done" />
-                  </View>
-              </View>
-            </View>
-            ):(
-            <View>
-              {/*Using a date, specifically ios/android*/}
-              {usingDateMobile ? (
-                <View style = {styles.container}>
-                  <MobileDateTimePicker/>
-                  <Button
-                    onPress={() =>{
-                      if(Platform.OS === "web"){
-                        toggleUsingDateWeb();
-                      }else{
-                        toggleUsingDateMobile();
-                      }
-                      toggleUsingNothing();}}
-                    theme = "primary"
-                    label="Done" />
+          ):(
+          
+          <View>
+            {/*Using an image*/}
+            {usingImage ? (
+              <View style = {styles.container}>
+                <View style = {styles.imageContainer}>
+                  <OurImageViewer
+                    selectedImage = {selectedImage}
+                    setSelectedImage={setSelectedImage}
+                    setPhotoButtonLabel={setPhotoButtonLabel}
+                    />
                 </View>
+                <View style = {styles.footerContainer}> 
+                  <View style = {styles.footerTopButton}/>
+                  <View style = {styles.footerBottomButton}>
+                    <Button 
+                      onPress={() =>{
+                        toggleUsingImage();
+                        toggleUsingNothing();
+                        togglePhotoButtonLabel();
+                      }}
+                      theme = "primary"
+                      label="Done" />
+                    </View>
+                </View>
+              </View>
               ):(
-                <View style = {styles.container}>
-                  {/*Using a date, specifically web (idk if windows will work with this but if we want to include we can)*/}
-                  <WebDateTimePicker/>
-                  <Button
-                    onPress={() =>{
-                      if(Platform.OS === "web"){
-                        toggleUsingDateWeb();
-                      }else{
-                        toggleUsingDateMobile();
-                      }
-                      toggleUsingNothing();}}
-                    theme = "primary"
-                    label="Done" />
-                </View>
+              <View>
+                {/*Using a date, specifically ios/android*/}
+                {usingDateMobile ? (
+                  <View style = {styles.container}>
+                    <MobileDateTimePicker
+                      selectedDate = {selectedDate}
+                      setSelectedDate ={setSelectedDate}
+                      setDateButtonLabel={setDateButtonLabel}/>
+                    <Button
+                      onPress={() =>{
+                        if(Platform.OS === "web"){
+                          toggleUsingDateWeb();
+                        }else{
+                          toggleUsingDateMobile();
+                        }
+                        toggleUsingNothing();}}
+                      theme = "primary"
+                      label="Done" />
+                  </View>
+                ):(
+                  <View style = {styles.container}>
+                    {/*Using a date, specifically web (idk if windows will work with this but if we want to include we can)*/}
+                    <WebDateTimePicker
+                      selectedDate = {selectedDate}
+                      setSelectedDate ={setSelectedDate}
+                      setDateButtonLabel={setDateButtonLabel}/>
+                    <Button
+                      onPress={() =>{
+                        if(Platform.OS === "web"){
+                          toggleUsingDateWeb();
+                        }else{
+                          toggleUsingDateMobile();
+                        }
+                        toggleUsingNothing();}}
+                      theme = "primary"
+                      label="Done" />
+                  </View>
+                )}
+              </View>
               )}
-            </View>
-            )}
-        </View>
-        )}
+          </View>
+          )}
+    
+    </View>) : ( <View style = {styles.container}>
+        {/*Done with details*/}
+        {/* Display the selected details*/}
+        {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
+        {selectedDescription && (<Text>Description: {selectedDescription}</Text>)}
+        {selectedImage && (<Image source={{ uri: selectedImage }} style={styles.selectedImage} />)}
+        {selectedDate && (<Text>{selectedDate.toLocaleString()}</Text> )}
+        {selectedPrivacyOn ? <Text>Private Event</Text> : <Text>Public Event</Text>}
+        <Button 
+                label = "Alter event information" 
+                theme = "primary"
+                onPress={() =>{
+                  toggleWorking();
+                }}
+            />
+        </View>)
+        }
     </View>
   )
 }
@@ -184,6 +249,12 @@ const styles = StyleSheet.create({
   //   alignItems: 'center',
   //   flexDirection: 'row',
   // },
+  selectedImage: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+    marginTop: 20,
+  },
   datePicker: {
     height: 120,
     marginTop: -10,

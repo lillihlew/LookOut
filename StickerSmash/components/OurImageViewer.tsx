@@ -9,14 +9,16 @@ import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressabl
 import { captureRef } from 'react-native-view-shot';
 
 const PlaceholderImage = require('@/assets/images/background-image.png');
+// const [validImage, setValidImage] = useState<boolean>(false);
+const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
-const OurImageViewer = () => {
+
+const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:any) => {
     
     const imageRef = useRef(null);
     const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-    const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     // const [showAppOptions, setShowAppOptions] = useState<boolean>(false); //here
-    const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
+    // const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
       
     
     useEffect(() =>{
@@ -39,10 +41,12 @@ const OurImageViewer = () => {
     
         if (!result.canceled) {
           setSelectedImage(result.assets[0].uri);
-          togglePhotoButtonLabel();
+          setPhotoButtonLabel("Change Photo");
+          // setValidImage(true);
         //   setShowAppOptions(true); //here
         } else {
           alert('You did not select any image.');
+          // setValidImage(false);
         }
       };
 
@@ -57,7 +61,7 @@ const OurImageViewer = () => {
                     <Button 
                         onPress={pickImageAsync}
                         theme="primary" 
-                        label={photoButtonLabel} />
+                        label="Choose Photo" />
                 </View>
                 <View style = {styles.footerBottomButton}>
                 </View>
@@ -68,6 +72,14 @@ const OurImageViewer = () => {
 
 
 export default OurImageViewer;
+
+// export function getImage (){
+//     if(validImage){
+//       return selectedImage;
+//     }else{
+//       return PlaceholderImage;
+//     }
+// }
 
 const styles = StyleSheet.create({
     container: {
