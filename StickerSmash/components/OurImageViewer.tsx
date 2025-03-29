@@ -8,13 +8,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
-// const [validImage, setValidImage] = useState<boolean>(false);
-const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
-
-
 const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:any) => {
-    
+    const PlaceholderImage = require('@/assets/images/background-image.png');
     const imageRef = useRef(null);
     const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
     // const [showAppOptions, setShowAppOptions] = useState<boolean>(false); //here

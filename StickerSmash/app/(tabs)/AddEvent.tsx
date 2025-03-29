@@ -13,6 +13,7 @@ import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
+import * as SQLite from 'expo-sqlite';
 
 
 export default function Index() {
@@ -195,6 +196,24 @@ export default function Index() {
                   toggleWorking();
                 }}
             />
+        <Button
+          label = "Post event"
+          theme = "primary"
+          onPress={() =>{
+            if(selectedTitle && selectedDescription && selectedImage && selectedDate){
+              //save event to data & post to home
+              
+            }else{
+              let missing = "Missing: \n";
+              if (!selectedTitle) missing = missing + " Title \n";
+              if (!selectedDescription) missing = missing + " Description \n";
+              if (!selectedImage) missing = missing + " Image \n";
+              if (!selectedDate) missing = missing + " Date/Time \n";
+              
+              alert(missing);
+            }
+          }}
+        />
         </View>)
         }
     </View>

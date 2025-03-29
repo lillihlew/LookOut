@@ -2,9 +2,9 @@ import {StyleSheet, Platform, Button, View, Text} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker"
 import {useState} from "react";
 
-const [date, setDate] = useState(new Date());
 
 const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel}:any) => {
+    const [date, setDate] = useState(new Date());
     const today=new Date();
     const [show, setShow] = useState(false);
 
