@@ -1,7 +1,7 @@
 import { Button, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import DateTime from '@/components/DateTime';
+
 
 const OurDateTimePicker = () => {
 

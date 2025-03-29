@@ -27,7 +27,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
      
-      
+    
     <View style={styles.footerContainer}>
       <Button 
         onPress={signIn}
