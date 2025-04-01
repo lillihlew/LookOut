@@ -13,8 +13,7 @@ import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
-import * as SQLite from 'expo-sqlite';
-import { initDB, saveEventToSQLite } from '@/utils/database';
+
 
 
 
@@ -75,9 +74,7 @@ export default function Index() {
   let db: any = null;
 
 
-if (Platform.OS !== 'web') {
-  db = SQLite.openDatabaseSync('events.db');
-}
+
   
   return (
     <View style = {styles.container}>
@@ -213,13 +210,7 @@ if (Platform.OS !== 'web') {
           theme = "primary"
           onPress={() =>{
             if(selectedTitle && selectedDescription && selectedImage && selectedDate){
-              saveEventToSQLite(
-                selectedTitle,
-                selectedDescription,
-                selectedImage,
-                selectedDate.toISOString(),
-                selectedPrivacyOn
-              );
+            //yet to implement
             }else{
               let missing = "Missing: \n";
               if (!selectedTitle) missing = missing + " Title \n";
