@@ -213,6 +213,7 @@ export default function Index() {
           onPress={() =>{
             if(selectedTitle && selectedDescription && selectedImage && selectedDate){
              //here
+          
             }else{
               let missing = "Missing: \n";
               if (!selectedTitle) missing = missing + " Title \n";
