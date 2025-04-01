@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import { getEventsFromSQLite } from '@/utils/database'; // 👈 Import this
+//import { getEventsFromSQLite } from '@/utils/database'; 
 
 const { width, height } = Dimensions.get('window');
 
@@ -9,11 +9,11 @@ const HomeScreen = () => {
   const [events, setEvents] = useState<any[]>([]);
 
   // Fetch events when the screen loads
-  useEffect(() => {
-    getEventsFromSQLite((fetchedEvents) => {
-      setEvents(fetchedEvents);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getEventsFromSQLite((fetchedEvents) => {
+  //     setEvents(fetchedEvents);
+  //   });
+  // }, []);
 
   const renderCard = (event: any) => (
     <View style={styles.card}>
