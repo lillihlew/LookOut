@@ -9,13 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lillihlew.LookOut",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#25292e"
-      }
+      },
+      "package": "com.lillihlew.LookOut"
     },
     "web": {
       "bundler": "metro",
@@ -32,11 +35,22 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      // "expo-google-auth-session",
+      [
+        "expo-firebase-core",
+        {
+          "config": "./GoogleService-Info.plist"
+        }
       ]
       
     ],
     "experiments": {
       "typedRoutes": true
     }
+    // "dependencies": {
+    //   "expo-google-auth-session": "^2.0.0",
+    //   "expo-firebase-core": "^5.0.0"
+    // }
   }
 }

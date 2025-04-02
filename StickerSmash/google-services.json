@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "191644762711",
+    "project_id": "lookout-5fee5",
+    "storage_bucket": "lookout-5fee5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191644762711:android:9bbd99979d4000a4b75912",
+        "android_client_info": {
+          "package_name": "com.lillihlew.lookout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4I-GpVhOMtgo3t6Iga_1fjzikFg3sJgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
