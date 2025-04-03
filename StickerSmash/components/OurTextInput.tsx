@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {StyleSheet, Button, TextInput, View, Text} from "react-native";
-
+import SharedStyles from '../app/styles.js';
 
 
 const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, setSelectedDescription}: any) => {
@@ -11,26 +11,31 @@ const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, set
         <View> 
             <TextInput 
                 value={titleText}
-                onChangeText = {(newValue) => {
+                onChangeText = {(newValue: any) => {
                     setTitleText(newValue); 
                     setSelectedTitle(newValue);
                 }}
-                style = {styles.inputText}
+                style = {SharedStyles.inputText}
                 placeholder = {"Enter your event title"}
-                placeholderTextColor = "green"
             />
             <TextInput 
                 value={descriptionText}
-                onChangeText = {(newValue) => {
+                onChangeText = {(newValue: any) => {
                     setDescriptionText(newValue);
                     setSelectedDescription(newValue);
                 }}
-                style = {styles.inputText}
+                style = {SharedStyles.inputText}
                 placeholder = {"Enter your event description"}
-                placeholderTextColor = "green"
             />
-            <Text> Event title: {titleText} </Text>
-            <Text> Event description: {descriptionText}</Text>
+
+            <Text style = {SharedStyles.infoText}> 
+                Event title: {titleText} 
+            </Text>
+
+            <Text style = {SharedStyles.infoText}> 
+                Event description: {descriptionText}
+            </Text>
+
         </View>
     );
 }

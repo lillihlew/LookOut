@@ -30,12 +30,12 @@ export default function TabsLayout() {
           ),
         }} />
       <Tabs.Screen 
-        name="Favorites" 
+        name="CurrentEvents" 
         options={{ 
-          headerTitle: 'Favorites',
+          headerTitle: 'Current',
           tabBarIcon: ({focused, color}) => (
             <Ionicons 
-                name={focused ? 'heart' : 'heart-outline'} 
+                name={focused ? 'timer' : 'timer-outline'} 
                 color={color} 
                 size={24}
             />

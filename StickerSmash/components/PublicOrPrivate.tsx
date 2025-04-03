@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {StyleSheet, Button, TextInput, View, Text} from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
     
 const PublicOrPrivate = ({selectedPrivacyOn, setSelectedPrivacyOn}: any) => {
@@ -43,6 +42,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignItems: "center",
         justifyContent: "center",
+        color: '#563653'
     }
 })
 
