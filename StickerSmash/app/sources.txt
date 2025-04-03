@@ -31,3 +31,6 @@ User authentification:
 - https://react-native-google-signin.github.io/docs/setting-up/expo
 - https://react-native-google-signin.github.io/docs/setting-up/expo#expo-and-firebase
 - https://www.youtube.com/watch?v=tacJUeBYPYc
+
+Scrolling
+- https://reactnative.dev/docs/scrollview
