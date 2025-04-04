@@ -16,7 +16,10 @@ import WebDateTimePicker from '@/components/WebDateTimePicker';
 import { db } from '../firebaseConfig'; 
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< Updated upstream
 import { router } from 'expo-router';
+=======
+>>>>>>> Stashed changes
 
 
 
@@ -247,10 +250,14 @@ export default function Index() {
         alert('Event posted!');
   
         
+<<<<<<< Updated upstream
         const goToHome = async () => {
           router.push('/(tabs)/Home');
         };
         goToHome();
+=======
+        navigation.navigate('Home');
+>>>>>>> Stashed changes
       } catch (error) {
         console.error('Error posting event:', error);
         alert('Failed to post event');
