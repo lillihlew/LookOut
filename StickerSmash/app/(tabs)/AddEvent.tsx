@@ -17,7 +17,10 @@ import { db } from '../firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { router } from 'expo-router';
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -251,10 +254,14 @@ export default function Index() {
   
         
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         const goToHome = async () => {
           router.push('/(tabs)/Home');
         };
         goToHome();
+=======
+        navigation.navigate('Home');
+>>>>>>> Stashed changes
 =======
         navigation.navigate('Home');
 >>>>>>> Stashed changes

@@ -42,8 +42,12 @@
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     "firebaseui": "^6.1.0",
+=======
+    "firebase": "^11.6.0",
+>>>>>>> Stashed changes
 =======
     "firebase": "^11.6.0",
 >>>>>>> Stashed changes
