@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-
+import { db } from '../firebaseConfig'; 
+import { collection, getDocs } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,10 +12,25 @@ const HomeScreen = () => {
 
   
 
+useEffect(() => {
+  const unsubscribe = onSnapshot(collection(db, 'events'), (snapshot) => {
+    const eventList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setEvents(eventList);
+  });
+
+  return () => unsubscribe(); // clean up the listener when component unmounts
+}, []);
+
+  
+
   const renderCard = (event: any) => (
     <View style={styles.card}>
       <Text style={styles.title}>{event.title}</Text>
-      <Text>{event.date}</Text>
+      <Text>{new Date(event.date).toLocaleString()}</Text>
+      {event.image && (
+        <Image source={{ uri: event.image }} style={styles.image} />
+      )}
+      <Text style={styles.description}>{event.description}</Text>
     </View>
   );
 
@@ -48,11 +65,11 @@ const styles = StyleSheet.create({
   },
   card: {
     width: width * 0.85,
-    height: height * 0.6,
+    height: height * 0.7,
     borderRadius: 20,
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOpacity: 0.2,
@@ -61,6 +78,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  description: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 250,
+    borderRadius: 15,
+    marginVertical: 10,
   },
   loadingText: {
     marginTop: 100,

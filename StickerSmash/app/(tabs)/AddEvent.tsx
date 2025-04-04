@@ -13,6 +13,10 @@ import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
+import { db } from '../firebaseConfig'; 
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 
 
@@ -20,6 +24,23 @@ import WebDateTimePicker from '@/components/WebDateTimePicker';
 
 
 export default function Index() {
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'events'));
+        console.log('EVENTS FROM FIRESTORE:');
+        snapshot.forEach(doc => {
+          console.log(doc.id, doc.data());
+        });
+      } catch (error) {
+        console.error('Error loading events:', error);
+      }
+    };
+  
+    loadEvents();
+  }, []);
+  const navigation = useNavigation();
+
   //titles & descriptions
   const [selectedTitle, setSelectedTitle] = useState('');
   const [selectedDescription, setSelectedDescription] = useState('');
@@ -71,7 +92,7 @@ export default function Index() {
 
     
   }
-  let db: any = null;
+
 
 
 
@@ -205,23 +226,47 @@ export default function Index() {
                   toggleWorking();
                 }}
             />
-        <Button
-          label = "Post event"
-          theme = "primary"
-          onPress={() =>{
-            if(selectedTitle && selectedDescription && selectedImage && selectedDate){
-            //yet to implement
-            }else{
-              let missing = "Missing: \n";
-              if (!selectedTitle) missing = missing + " Title \n";
-              if (!selectedDescription) missing = missing + " Description \n";
-              if (!selectedImage) missing = missing + " Image \n";
-              if (!selectedDate) missing = missing + " Date/Time \n";
-              
-              alert(missing);
-            }
-          }}
-        />
+      <Button
+  label="Post event"
+  theme="primary"
+  onPress={async () => {
+    console.log("Posting event...");
+    if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
+      try {
+        const docRef = await addDoc(collection(db, 'events'), {
+          title: selectedTitle,
+          description: selectedDescription,
+          image: selectedImage,
+          date: selectedDate.toISOString(),
+          privacy: selectedPrivacyOn ? 'private' : 'public',
+          likeCount: 0,
+          createdAt: new Date().toISOString(),
+        });
+  
+        console.log("Event posted with ID:", docRef.id);
+        alert('Event posted!');
+  
+        
+        const goToHome = async () => {
+          router.push('/(tabs)/Home');
+        };
+        goToHome();
+      } catch (error) {
+        console.error('Error posting event:', error);
+        alert('Failed to post event');
+      }
+    } else {
+      let missing = "Missing: \n";
+      if (!selectedTitle) missing += "Title \n";
+      if (!selectedDescription) missing += "Description \n";
+      if (!selectedImage) missing += "Image \n";
+      if (!selectedDate) missing += "Date/Time \n";
+      alert(missing);
+    }
+  }}
+  
+/>
+
         </View>)
         }
     </View>
