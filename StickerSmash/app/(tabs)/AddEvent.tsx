@@ -13,20 +13,39 @@ import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
-import { db } from '../firebaseConfig'; 
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import {firebaseConfig} from "../../firebaseConfig"
+import { getFirestore, addDoc, collection, getDocs, } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 import { router } from 'expo-router';
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+import { initializeApp } from 'firebase/app';
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 
 
-
+async function addEvent(
+  selectedTitle: string,
+  selectedDescription: string,
+  selectedImage: string,
+  selectedDate: Date,
+  selectedPrivacyOn: boolean
+) {
+  const eventsCollection = collection(db, "EventsCol");
+  const id = "" // TODO: generate unique ID
+  return await addDoc(eventsCollection, {
+    id: id,
+    title: selectedTitle,
+    description: selectedDescription,
+    image: selectedImage,
+    date: selectedDate.toISOString(),
+    privacy: selectedPrivacyOn ? 'private' : 'public',
+    likeCount: 0,
+    createdAt: new Date().toISOString(),
+});
+}
 
 
 export default function Index() {
@@ -239,32 +258,22 @@ export default function Index() {
     console.log("Posting event...");
     if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
       try {
-        const docRef = await addDoc(collection(db, 'events'), {
-          title: selectedTitle,
-          description: selectedDescription,
-          image: selectedImage,
-          date: selectedDate.toISOString(),
-          privacy: selectedPrivacyOn ? 'private' : 'public',
-          likeCount: 0,
-          createdAt: new Date().toISOString(),
-        });
+        const docRef = await addEvent (
+          selectedTitle, selectedDescription, selectedImage, selectedDate, selectedPrivacyOn
+        )
   
         console.log("Event posted with ID:", docRef.id);
         alert('Event posted!');
   
         
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
         const goToHome = async () => {
           router.push('/(tabs)/Home');
         };
         goToHome();
-=======
-        navigation.navigate('Home');
->>>>>>> Stashed changes
-=======
-        navigation.navigate('Home');
->>>>>>> Stashed changes
+
+
+
       } catch (error) {
         console.error('Error posting event:', error);
         alert('Failed to post event');

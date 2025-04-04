@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import { db } from '../firebaseConfig'; 
-import { collection, getDocs } from 'firebase/firestore';
+import {firebaseConfig} from "../../firebaseConfig"
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
 
 const { width, height } = Dimensions.get('window');
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+async function getEvents(
+  selectedTitle: string,
+  selectedDescription: string,
+  selectedImage: string,
+  selectedDate: Date,
+  selectedPrivacyOn: boolean
+) {
+  const eventsCollection = collection(db, "EventsCol");
+  const eventsSnapshot = await getDocs(eventsCollection)
+  return eventsSnapshot.docs.map(event => event.data())
+}
+
+
 
 const HomeScreen = () => {
   const [events, setEvents] = useState<any[]>([]);
