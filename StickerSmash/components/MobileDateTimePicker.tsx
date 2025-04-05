@@ -4,32 +4,30 @@ import {useState} from "react";
 
 
 const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel}:any) => {
-    const [date, setDate] = useState(new Date());
     const today=new Date();
     const [show, setShow] = useState(false);
 
     const onChange = (e: any, thisClassSelectedDate: any) => {
-        setDate(thisClassSelectedDate);
-        setSelectedDate(selectedDate);
+        setSelectedDate(thisClassSelectedDate);
         setShow(false);
     };
 
     return(
         <View style = {styles.container}>
             <DateTimePicker
-                value = {date}
+                value = {selectedDate}
                 mode = {"date"}
                 is24Hour = {true}
                 onChange = {onChange}
                 minimumDate={today}
             />
             <DateTimePicker
-                value = {date}
+                value = {selectedDate}
                 mode = {"time"}
                 is24Hour = {true}
                 onChange = {onChange}
             />
-            <Text>{date.toLocaleString()}</Text> 
+            <Text>{selectedDate.toLocaleString()}</Text> 
         </View>
     )
 }

@@ -1,84 +1,50 @@
 import React, {useState} from "react";
-import {StyleSheet, Button, TextInput, View, Text} from "react-native";
-
+import {StyleSheet, TextInput, View, Text} from "react-native";
+import SharedStyles from "@/app/styles";
 
 
 const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, setSelectedDescription}: any) => {
-    const [titleText, setTitleText] = useState();
-    const [descriptionText, setDescriptionText] = useState();
- 
     return (
-        <View> 
+        <View style = {styles.container}> 
+            <Text style = {SharedStyles.textWhite}> Event title:</Text>
             <TextInput 
-                value={titleText}
+                value={selectedTitle}
                 onChangeText = {(newValue: any) => {
-                    setTitleText(newValue); 
                     setSelectedTitle(newValue);
                 }}
                 style = {styles.inputText}
                 placeholder = {"Enter your event title"}
-                placeholderTextColor = "green"
+                placeholderTextColor = "#fff"
             />
+            <Text style = {SharedStyles.textWhite}> Event description:</Text>
             <TextInput 
-                value={descriptionText}
+                value={selectedDescription}
                 onChangeText = {(newValue: any) => {
-                    setDescriptionText(newValue);
                     setSelectedDescription(newValue);
                 }}
                 style = {styles.inputText}
                 placeholder = {"Enter your event description"}
-                placeholderTextColor = "green"
+                placeholderTextColor = "#fff"
             />
-            <Text> Event title: {titleText} </Text>
-            <Text> Event description: {descriptionText}</Text>
+            {/* <Text> Event title: {selectedTitle} </Text>
+            <Text> Event description: {selectedDescription}</Text> */}
         </View>
     );
 }
 
 export default OurTextInput;
 
-// import React, {useState} from "react";
-// import {StyleSheet, View, Button, TextInput, Text} from "react-native";
-
-// const OurTextInput = () => {
-//     const[text, setText] = useState();
-//     const[typedText, setTypedText] = useState();
-//     const handlePress = () => {
-//         setTypedText(text);
-//     }
-        
-
-//     return (
-//     <View> 
-//         <TextInput 
-//             value = {text}
-//             onChangeText={(newValue)=> setText(newValue)}
-//             style = {styles.inputText} 
-//             placeholder = {"Enter your event title"}
-//             placeholderTextColor={"green"}
-//         />
-//         <View style = {styles.button}>
-//             <Button title = "Please input a title" onPress = {handlePress} color = "green" />
-//         </View>
-//         <Text> You typed:{text}</Text>
-//     </View>
-//     );}
-
-
-// export default OurTextInput;
-
 const styles = StyleSheet.create({
     inputText:{
         borderWidth: 1,
+        borderColor: "#fff",
         width: 200,
         margin: 10,
         height: 40,
         padding: 5,
+        color: "#fff"
     },
-    button:{
-        width: 350,
-        marginBottom: 10,
-        alignItems: "center",
-        justifyContent: "center",
-    }
+    container: {
+        alignItems: 'flex-start',
+    },
 })

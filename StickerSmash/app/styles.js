@@ -44,15 +44,13 @@ const SharedStyles = StyleSheet.create({container: {
         margin: 10,
         height: 40,
         padding: 5,
+        color: "#beb2d5",
     },
     buttonGreen:{
         width: 350,
         marginBottom: 10,
         alignItems: "center",
         justifyContent: "center",
-    },
-    inputText: {
-        color: "#beb2d5",
     },
     infoText: {
         color: "#beb2d5",

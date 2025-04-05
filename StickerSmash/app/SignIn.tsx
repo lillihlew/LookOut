@@ -8,7 +8,7 @@ import { useState } from 'react';
 import IconButton from '@/components/IconButton';
 import CircleButton from '@/components/CircleButton';
 import { useRouter, Stack, Link} from 'expo-router';
-
+import SharedStyles from './styles';
 
 
 
