@@ -32,15 +32,15 @@ const HomeScreen = () => {
 
 
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'EventsCol'), (snapshot) => { // Corrected collection name
-      const eventList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setEvents(eventList);
-    });
-  
-    return () => unsubscribe(); // clean up the listener when component unmounts
-  }, []);
-  
+useEffect(() => {
+  const unsubscribe = onSnapshot(collection(db, 'EventsCol'), (snapshot) => { // Corrected collection name
+    const eventList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setEvents(eventList);
+  });
+
+  return () => unsubscribe(); // clean up the listener when component unmounts
+}, []);
+
 
   
 
