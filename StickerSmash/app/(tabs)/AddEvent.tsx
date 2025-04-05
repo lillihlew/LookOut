@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Image } from 'expo-image';
-// import ImageViewer from '@/components/ImageViewer';
+//import ImageViewer from '@/components/ImageViewer';
 import Button from '@/components/Button';
 import * as ImagePicker from "expo-image-picker";
 import { type ImageSource } from 'expo-image';
@@ -32,18 +32,23 @@ async function addEvent(
   selectedDate: Date,
   selectedPrivacyOn: boolean
 ) {
-  const eventsCollection = collection(db, "EventsCol");
-  //const id = "" // TODO: generate unique ID
-  return await addDoc(eventsCollection, {
-    //id: id,
-    title: selectedTitle,
-    description: selectedDescription,
-    image: selectedImage,
-    date: selectedDate.toISOString(),
-    privacy: selectedPrivacyOn ? 'private' : 'public',
-    likeCount: 0,
-    createdAt: new Date().toISOString(),
-});
+  try {
+    const eventsCollection = collection(db, "EventsCol");
+    //const id = "" // TODO: generate unique ID
+    const docRef = await addDoc(eventsCollection, {
+      //id: id,
+      title: selectedTitle,
+      description: selectedDescription,
+      image: selectedImage,
+      date: selectedDate.toISOString(),
+      privacy: selectedPrivacyOn ? 'private' : 'public',
+      likeCount: 0,
+      createdAt: new Date().toISOString(),
+    });
+    return docRef;
+  } catch (e : any){
+    console.error(e)
+  }
 }
 
 
@@ -234,41 +239,49 @@ export default function Index() {
                   toggleWorking();
                 }}
             />
-        <Button
-          label = "Post event"
-          theme = "primary"
-          onPress={async () => {
-            console.log("Trying to post event!");
-            if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
-              console.log("Posting event...");
-              try {
-                
-                const docRef = await addEvent (
-                  selectedTitle, selectedDescription, selectedImage, selectedDate, selectedPrivacyOn
-                )
+      <Button
+  label="Post event"
+  theme="primary"
+  onPress={async () => {
+    console.log("Trying to post event!");
+    if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
+      console.log("Posting event...");
+      try {
+        const docRef = await addEvent(
+          selectedTitle,
+          selectedDescription,
+          selectedImage,
+          selectedDate,
+          selectedPrivacyOn
+        );
 
-                console.log("Event posted with ID:", docRef.id);
-                alert('Event posted!');
-        
-                const goToHome = async () => {
-                  router.push('/(tabs)/Home');
-                };
-                goToHome();
-        
-              } catch (error) {
-                console.error('Error posting event:', error);
-                alert('Failed to post event');
-              }
-            }else{
-              let missing = "Missing: \n";
-              if (!selectedTitle) missing = missing + " Title \n";
-              if (!selectedDescription) missing = missing + " Description \n";
-              if (!selectedImage) missing = missing + " Image \n";
-              if (!selectedDate) missing = missing + " Date/Time \n";
-              alert(missing);
-            }
-          }}
-        />
+        if (docRef && docRef.id) {
+          console.log("Event posted with ID:", docRef.id);
+          alert('Event posted!');
+
+          const goToHome = async () => {
+            router.push('/(tabs)/Home');
+          };
+          goToHome();
+        } else {
+          console.warn("Event posted, but ID is undefined!");
+          alert('Event posted successfully, but there was an issue retrieving the ID.');
+        }
+      } catch (error) {
+        console.error('Error posting event:', error);
+        alert('Failed to post event');
+      }
+    } else {
+      let missing = "Missing: \n";
+      if (!selectedTitle) missing = missing + " Title \n";
+      if (!selectedDescription) missing = missing + " Description \n";
+      if (!selectedImage) missing = missing + " Image \n";
+      if (!selectedDate) missing = missing + " Date/Time \n";
+      alert(missing);
+    }
+  }}
+/>
+
         </View>)
         }
     </View>

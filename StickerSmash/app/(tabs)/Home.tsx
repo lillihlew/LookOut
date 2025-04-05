@@ -13,17 +13,17 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-async function getEvents(
-  selectedTitle: string,
-  selectedDescription: string,
-  selectedImage: string,
-  selectedDate: Date,
-  selectedPrivacyOn: boolean
-) {
-  const eventsCollection = collection(db, "EventsCol");
-  const eventsSnapshot = await getDocs(eventsCollection)
-  return eventsSnapshot.docs.map(event => event.data())
-}
+// async function getEvents(
+//   selectedTitle: string,
+//   selectedDescription: string,
+//   selectedImage: string,
+//   selectedDate: Date,
+//   selectedPrivacyOn: boolean
+// ) {
+//   const eventsCollection = collection(db, "EventsCol");
+//   const eventsSnapshot = await getDocs(eventsCollection)
+//   return eventsSnapshot.docs.map(event => event.data())
+// }
 
 
 
@@ -32,14 +32,15 @@ const HomeScreen = () => {
 
 
 
-useEffect(() => {
-  const unsubscribe = onSnapshot(collection(db, 'events'), (snapshot) => {
-    const eventList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setEvents(eventList);
-  });
-
-  return () => unsubscribe(); // clean up the listener when component unmounts
-}, []);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'EventsCol'), (snapshot) => { // Corrected collection name
+      const eventList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setEvents(eventList);
+    });
+  
+    return () => unsubscribe(); // clean up the listener when component unmounts
+  }, []);
+  
 
   
 
