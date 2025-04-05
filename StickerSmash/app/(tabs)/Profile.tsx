@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
+import SharedStyles from '../styles';
 
 
 const { width } = Dimensions.get('window');
@@ -24,7 +25,7 @@ const ProfileScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
       <Text style={styles.sectionTitle}>Events You Liked</Text>
       <FlatList
         data={likedEvents}

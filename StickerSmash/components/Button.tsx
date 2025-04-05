@@ -1,14 +1,18 @@
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Fontisto from '@expo/vector-icons/Fontisto';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 type Props = {
   label: string;
-  theme?: 'primary';
+  theme: string;
   onPress?: () => void;
 };
 
-export default function Button({ label, theme, onPress }: Props) {
-  if (theme === 'primary') {
+
+
+export default function Button({ label, theme, onPress}: Props) {
+  if (theme === 'photo') {
     return (
       <View
         style={[
@@ -24,6 +28,57 @@ export default function Button({ label, theme, onPress }: Props) {
       </View>
     );
   }
+
+  else if (theme === 'date') {
+      return (
+        <View
+          style={[
+            styles.buttonContainer,
+            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
+          ]}>
+          <Pressable
+            style={[styles.button, { backgroundColor: '#fff' }]}
+            onPress={onPress}>
+            <Fontisto name="date" size={24} color="black" />
+            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+          </Pressable>
+        </View>
+      );
+    }
+  
+    else if (theme === 'Private') {
+      return (
+        <View
+          style={[
+            styles.buttonContainer,
+            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
+          ]}>
+          <Pressable
+            style={[styles.button, { backgroundColor: '#fff' }]}
+            onPress={onPress}>
+            <AntDesign name="lock1" size={24} color="black" />
+            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+          </Pressable>
+        </View>
+      );
+    }
+
+    else if (theme === 'Public') {
+      return (
+        <View
+          style={[
+            styles.buttonContainer,
+            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
+          ]}>
+          <Pressable
+            style={[styles.button, { backgroundColor: '#fff' }]}
+            onPress={onPress}>
+            <AntDesign name="unlock" size={24} color="black" />
+            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+          </Pressable>
+        </View>
+      );
+    }
 
   return (
     <View style={styles.buttonContainer}>

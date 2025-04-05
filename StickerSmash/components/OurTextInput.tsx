@@ -11,7 +11,7 @@ const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, set
         <View> 
             <TextInput 
                 value={titleText}
-                onChangeText = {(newValue) => {
+                onChangeText = {(newValue: any) => {
                     setTitleText(newValue); 
                     setSelectedTitle(newValue);
                 }}
@@ -21,7 +21,7 @@ const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, set
             />
             <TextInput 
                 value={descriptionText}
-                onChangeText = {(newValue) => {
+                onChangeText = {(newValue: any) => {
                     setDescriptionText(newValue);
                     setSelectedDescription(newValue);
                 }}

@@ -1,10 +1,13 @@
 import { Tabs } from 'expo-router';
 import { Ionicons, FontAwesome5, AntDesign, Zocial } from '@expo/vector-icons';
+import Fontisto from '@expo/vector-icons/Fontisto';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 export default function TabsLayout() {
   return (
     <Tabs
         screenOptions={{
+            headerShown: false, 
             tabBarActiveTintColor: '#ffd33d',
             headerStyle: {
                 backgroundColor: '#25292e',
@@ -12,7 +15,7 @@ export default function TabsLayout() {
             headerShadowVisible: false,
             headerTintColor: '#fff',
             tabBarStyle: {
-                backgroundColor: '#25292e',
+                backgroundColor: '#fff',
             },
         }}
     >
@@ -30,17 +33,25 @@ export default function TabsLayout() {
           ),
         }} />
       <Tabs.Screen 
-        name="Favorites" 
-        options={{ 
+        name="TrendingEvents" 
+        options={{
           headerTitle: 'Favorites',
-          tabBarIcon: ({focused, color}) => (
-            <Ionicons 
-                name={focused ? 'heart' : 'heart-outline'} 
+          tabBarIcon: ({ focused, color }) =>
+            focused ? (
+              <Fontisto 
+                name="fire"
                 color={color} 
                 size={24}
-            />
-          ),
-        }} />
+              />
+            ) : (
+              <SimpleLineIcons
+                name="fire"
+                color={color} 
+                size={24}
+              />
+            )
+        }}
+      />
       <Tabs.Screen 
         name="AddEvent" 
         options={{ 
