@@ -41,9 +41,8 @@ export default function Index() {
         theme="primary" 
         label="Sign in" />
       <Button 
-        label="Create Account" 
-        onPress={createAccount}
-         />
+          label="Create Account"
+          onPress={createAccount} theme={''}         />
     </View>
 
   </View>
