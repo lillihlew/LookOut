@@ -55,7 +55,7 @@ const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:a
                     <Text style={styles.textWhite}>Upload your image!</Text> 
                     <Button 
                         onPress={pickImageAsync}
-                        theme="primary" 
+                        theme="photo" 
                         label="Choose Photo" />
                 </View>
                 <View style = {styles.footerBottomButton}>

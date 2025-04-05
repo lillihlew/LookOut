@@ -5,6 +5,7 @@ import {firebaseConfig} from "../../firebaseConfig"
 import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import SharedStyles from '../styles';
 
 const { width, height } = Dimensions.get('window');
 
@@ -54,7 +55,7 @@ useEffect(() => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={SharedStyles.container}>
       {events.length > 0 ? (
         <Swiper
           cards={events}

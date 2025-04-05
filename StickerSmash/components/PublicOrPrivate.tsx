@@ -1,7 +1,9 @@
 import React, {useState} from "react";
-import {StyleSheet, Button, TextInput, View, Text} from "react-native";
+import {StyleSheet, TextInput, View, Text} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
+import Button from "./Button";
+
     
 const PublicOrPrivate = ({selectedPrivacyOn, setSelectedPrivacyOn}: any) => {
     const [privacySettingOn, setPrivacySetting] = useState<boolean>(false);
@@ -23,10 +25,12 @@ const PublicOrPrivate = ({selectedPrivacyOn, setSelectedPrivacyOn}: any) => {
     }
 
 
+
     return (
         <View style = {styles.button}>
             <Button
-                title = {privacyLabel}
+                label = {privacyLabel}
+                theme = {text}
                 onPress={() => {
                     togglePrivacySettings();
                     }}

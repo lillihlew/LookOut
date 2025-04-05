@@ -16,7 +16,7 @@ import WebDateTimePicker from '@/components/WebDateTimePicker';
 import {firebaseConfig} from "../../firebaseConfig"
 import { getFirestore, addDoc, collection, getDocs, } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-
+import SharedStyles from '../styles';
 import { router } from 'expo-router';
 import { initializeApp } from 'firebase/app';
 
@@ -33,9 +33,9 @@ async function addEvent(
   selectedPrivacyOn: boolean
 ) {
   const eventsCollection = collection(db, "EventsCol");
-  const id = "" // TODO: generate unique ID
+  //const id = "" // TODO: generate unique ID
   return await addDoc(eventsCollection, {
-    id: id,
+    //id: id,
     title: selectedTitle,
     description: selectedDescription,
     image: selectedImage,
@@ -106,21 +106,21 @@ export default function Index() {
 
   
   return (
-    <View style = {styles.container}>
+    <View style = {SharedStyles.container}>
       {/*Working still, not done*/}
-      {working ? ( <View style = {styles.container}>
+      {working ? ( <View style = {SharedStyles.container}>
           {/*Using no extra screens*/}
           {usingNothing ? (
-            <View style={styles.container}>
+            <View style={SharedStyles.container}>
               <Button
                 label = {photoButtonLabel}
-                theme = "primary"
+                theme = "photo"
                 onPress={() => {
                   toggleUsingImage();
                   toggleUsingNothing();}}/>
               <Button
                 label ={dateButtonLabel}
-                theme = "primary"
+                theme = "date"
                 onPress={() => {
                   if(Platform.OS === "web"){
                     toggleUsingDateWeb();
@@ -153,15 +153,15 @@ export default function Index() {
           <View>
             {/*Using an image*/}
             {usingImage ? (
-              <View style = {styles.container}>
-                <View style = {styles.imageContainer}>
+              <View style = {SharedStyles.container}>
+                <View style = {SharedStyles.imageContainer}>
                   <OurImageViewer
                     selectedImage = {selectedImage}
                     setSelectedImage={setSelectedImage}
                     setPhotoButtonLabel={setPhotoButtonLabel}
                     />
                 </View>
-                <View style = {styles.footerContainer}> 
+                <View style = {SharedStyles.footerContainer}> 
                   <View style = {styles.footerTopButton}/>
                   <View style = {styles.footerBottomButton}>
                     <Button 
@@ -179,7 +179,7 @@ export default function Index() {
               <View>
                 {/*Using a date, specifically ios/android*/}
                 {usingDateMobile ? (
-                  <View style = {styles.container}>
+                  <View style = {SharedStyles.container}>
                     <MobileDateTimePicker
                       selectedDate = {selectedDate}
                       setSelectedDate ={setSelectedDate}
@@ -196,7 +196,7 @@ export default function Index() {
                       label="Done" />
                   </View>
                 ):(
-                  <View style = {styles.container}>
+                  <View style = {SharedStyles.container}>
                     {/*Using a date, specifically web (idk if windows will work with this but if we want to include we can)*/}
                     <WebDateTimePicker
                       selectedDate = {selectedDate}
@@ -219,7 +219,7 @@ export default function Index() {
           </View>
           )}
     
-    </View>) : ( <View style = {styles.container}>
+    </View>) : ( <View style = {SharedStyles.container}>
         {/*Done with details*/}
         {/* Display the selected details*/}
         {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
@@ -238,24 +238,22 @@ export default function Index() {
           label = "Post event"
           theme = "primary"
           onPress={async () => {
+            console.log("Trying to post event!");
             if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
               console.log("Posting event...");
               try {
+                
                 const docRef = await addEvent (
                   selectedTitle, selectedDescription, selectedImage, selectedDate, selectedPrivacyOn
                 )
-          
+
                 console.log("Event posted with ID:", docRef.id);
                 alert('Event posted!');
-          
-                
         
                 const goToHome = async () => {
                   router.push('/(tabs)/Home');
                 };
                 goToHome();
-        
-        
         
               } catch (error) {
                 console.error('Error posting event:', error);
@@ -267,7 +265,6 @@ export default function Index() {
               if (!selectedDescription) missing = missing + " Description \n";
               if (!selectedImage) missing = missing + " Image \n";
               if (!selectedDate) missing = missing + " Date/Time \n";
-              
               alert(missing);
             }
           }}
