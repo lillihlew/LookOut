@@ -7,6 +7,7 @@ import * as MediaLibrary from 'expo-media-library';
 import React, { useState, useRef, useEffect } from 'react';
 import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
+import SharedStyles from '@/app/styles';
 
 const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:any) => {
     const PlaceholderImage = require('@/assets/images/background-image.png');
@@ -46,19 +47,19 @@ const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:a
       };
 
     return (
-        <View style = {styles.container}>
-            <View ref= {imageRef} style={styles.imageContainer}>
+        <View style = {SharedStyles.container}>
+            <View ref= {imageRef} style={SharedStyles.imageContainer}>
                 <ImageViewer imgSource={PlaceholderImage} selectedImage = {selectedImage}/>
             </View>
-            <View style={styles.footerContainer}>
-                <View style = {styles.footerTopButton}>
-                    <Text style={styles.textWhite}>Upload your image!</Text> 
+            <View style={SharedStyles.footerContainer}>
+                <View style = {[styles.footerTopButton, {backgroundColor : SharedStyles.container.backgroundColor}]}>
+                    <Text style={SharedStyles.textWhite}>Upload your image!</Text> 
                     <Button 
                         onPress={pickImageAsync}
                         theme="photo" 
                         label="Choose Photo" />
                 </View>
-                <View style = {styles.footerBottomButton}>
+                <View style = {[styles.footerBottomButton, {backgroundColor : SharedStyles.container.backgroundColor}]}>
                 </View>
             </View>
         </View>

@@ -13,13 +13,12 @@ export default function Favorites() {
 
   return (
     <View style={SharedStyles.container}>
-      <Text style={SharedStyles.textWhite}>About screen</Text>
-      <DisplayEvent 
+      {/* <DisplayEvent 
         selectedImage = {placeholderImage} 
         selectedDate = {placeholderDate} 
         selectedTitle = {placeholderTitle} 
         selectedDescription = {placeholderDescription} 
-        selectedPrivacyOn = {placeholderPrivacy}></DisplayEvent>
+        selectedPrivacyOn = {placeholderPrivacy}></DisplayEvent> */}
     </View>
   );
 }

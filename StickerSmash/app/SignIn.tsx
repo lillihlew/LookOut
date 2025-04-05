@@ -1,5 +1,5 @@
 
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { Image } from 'expo-image';
 import ImageViewer from '@/components/ImageViewer';
 import Button from '@/components/Button';
@@ -24,9 +24,42 @@ export default function Index() {
   const signIn = goToHome; //UPDATE this to use sign in stuff later
   const createAccount = goToHome; //ALSO UPDATE THIS  with create account stuff later
 
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [OTP, setOTP] = useState(0);
+  
   return (
-    <View style={styles.container}>
-     
+    <View style={SharedStyles.container}>
+        <Text style = {SharedStyles.textWhite}> Username:</Text>
+        <TextInput 
+            value={username}
+            onChangeText = {(newValue: any) => {
+                setUsername(newValue);
+            }}
+            style = {SharedStyles.inputText}
+            placeholder = {"Enter your username"}
+            placeholderTextColor = "#fff"
+        />
+        <Text style = {SharedStyles.textWhite}> Email:</Text>
+        <TextInput 
+            value={email}
+            onChangeText = {(newValue: any) => {
+                setEmail(newValue);
+            }}
+            style = {SharedStyles.inputText}
+            placeholder = {"Enter your email address"}
+            placeholderTextColor = "#fff"
+        />
+        <Text style = {SharedStyles.textWhite}> One Time Password:</Text>
+        <TextInput 
+            value={email}
+            onChangeText = {(newValue: any) => {
+                setOTP(newValue);
+            }}
+            style = {SharedStyles.inputText}
+            placeholder = {"Enter your one time password"}
+            placeholderTextColor = "#fff"
+        />
     
     <View style={styles.footerContainer}>
       <Button 
