@@ -9,7 +9,6 @@ const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel
 
     const onChange = (e: any, thisClassSelectedDate: any) => {
         setSelectedDate(thisClassSelectedDate);
-        setShow(false);
     };
 
     return(
