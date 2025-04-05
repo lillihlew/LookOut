@@ -103,12 +103,26 @@ export default function Index() {
 
   const toggleWorking = () =>{
     setWorking(!working);
-
-    
   }
+
+  const placeholderImage = require('@/assets/images/background-image.png');
   let db: any = null;
 
-
+  const wipe = () =>{
+    //titles & descriptions
+    setSelectedDescription('');
+    setSelectedTitle('');
+    //images
+    setSelectedImage(placeholderImage);
+    setPhotoButtonLabel("Choose Photo");
+    //control booleans
+    setUsingNothing(true);
+    setWorking(true);
+    //dates
+    setSelectedDate(new Date());
+    //privacy
+    setSelectedPrivacyOn(false);
+  }
 
   
   return (
@@ -150,6 +164,13 @@ export default function Index() {
                 onPress={() =>{
                   console.log("selected privacy on save: ", selectedPrivacyOn);
                   toggleWorking();
+                }}
+            />
+            <Button 
+                label = "Reset event information" 
+                theme = "primary"
+                onPress={() =>{
+                  wipe();
                 }}
             />
           </View>
@@ -230,11 +251,11 @@ export default function Index() {
         {/* Display the selected details*/}
 
         <DisplayEvent 
-        selectedImage = {selectedImage ? selectedImage : require('@/assets/images/background-image.png')} 
+        selectedImage = {selectedImage ? selectedImage : placeholderImage} 
         selectedDate = {selectedDate ? selectedDate : new Date().toLocaleString()} 
         selectedTitle = {selectedTitle ? selectedTitle : "No title"} 
         selectedDescription = {selectedDescription ? selectedDescription : "No description"} 
-        selectedPrivacyOn = {selectedPrivacyOn ? "Private Event" : "Public Event"}></DisplayEvent>
+        selectedPrivacyOn = {selectedPrivacyOn}></DisplayEvent>
         
         {/* {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
         {selectedDescription && (<Text>Description: {selectedDescription}</Text>)}
