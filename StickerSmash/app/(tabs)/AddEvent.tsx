@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import SharedStyles from '../styles';
 import { router } from 'expo-router';
 import { initializeApp } from 'firebase/app';
+import DisplayEvent from '@/components/DisplayEvent';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -227,11 +228,19 @@ export default function Index() {
     </View>) : ( <View style = {SharedStyles.container}>
         {/*Done with details*/}
         {/* Display the selected details*/}
-        {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
+
+        <DisplayEvent 
+        selectedImage = {selectedImage ? selectedImage : require('@/assets/images/background-image.png')} 
+        selectedDate = {selectedDate ? selectedDate : new Date().toLocaleString()} 
+        selectedTitle = {selectedTitle ? selectedTitle : "No title"} 
+        selectedDescription = {selectedDescription ? selectedDescription : "No description"} 
+        selectedPrivacyOn = {selectedPrivacyOn ? "Private Event" : "Public Event"}></DisplayEvent>
+        
+        {/* {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
         {selectedDescription && (<Text>Description: {selectedDescription}</Text>)}
         {selectedImage && (<Image source={{ uri: selectedImage }} style={styles.selectedImage} />)}
         {selectedDate && (<Text>{selectedDate.toLocaleString()}</Text> )}
-        {selectedPrivacyOn ? <Text>Private Event</Text> : <Text>Public Event</Text>}
+        {selectedPrivacyOn ? <Text>Private Event</Text> : <Text>Public Event</Text>} */}
         <Button 
                 label = "Alter event information" 
                 theme = "primary"
