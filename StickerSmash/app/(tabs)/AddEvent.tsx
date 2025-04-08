@@ -176,8 +176,8 @@ export default function Index() {
                     />
                 </View>
                 <View style = {SharedStyles.footerContainer}> 
-                  <View style = {styles.footerTopButton}/>
-                  <View style = {styles.footerBottomButton}>
+                  <View style = {SharedStyles.footerTopButton}/>
+                  <View style = {SharedStyles.footerBottomButton}>
                     <Button 
                       onPress={() =>{
                         toggleUsingImage();
@@ -244,11 +244,6 @@ export default function Index() {
         selectedDescription = {selectedDescription ? selectedDescription : "No description"} 
         selectedPrivacyOn = {selectedPrivacyOn}></DisplayEvent>
         
-        {/* {selectedTitle && (<Text>Title: {selectedTitle}</Text>)}
-        {selectedDescription && (<Text>Description: {selectedDescription}</Text>)}
-        {selectedImage && (<Image source={{ uri: selectedImage }} style={styles.selectedImage} />)}
-        {selectedDate && (<Text>{selectedDate.toLocaleString()}</Text> )}
-        {selectedPrivacyOn ? <Text>Private Event</Text> : <Text>Public Event</Text>} */}
         <Button 
                 label = "Alter event information" 
                 theme = "primary"
@@ -305,79 +300,3 @@ export default function Index() {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textWhite: {
-    color: '#fff',
-  },
-  textBlue: {
-    color: '#9ff'
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
-  },
-  imageContainer: {
-    flex: 7,
-  },
-  image: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
-  },
-  footerContainer: {
-    flex: 1/2,
-    alignItems: 'center',
-  },
-  footerTopButton: {
-    flex: .5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  footerBottomButton: {
-    flex: .5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // optionsContainer: {
-  //   position: 'absolute',
-  //   bottom: 80,
-  // },
-  // optionsRow: {
-  //   alignItems: 'center',
-  //   flexDirection: 'row',
-  // },
-  selectedImage: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
-    marginTop: 20,
-  },
-  datePicker: {
-    height: 120,
-    marginTop: -10,
-  },
-  dateButton: {
-    height: 50,
-    justifyContent: "center", 
-    alignItems: "center",
-    borderRadius: 50,
-    marginTop: 10,
-    marginBottom: 15,
-    backgroundColor: "#075985",
-  },
-  pickerButton: {
-    paddingHorizontal: 20,
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#fff"
-  }
-});

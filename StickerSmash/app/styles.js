@@ -30,6 +30,16 @@ const SharedStyles = StyleSheet.create({container: {
         flex: 1 / 3,
         alignItems: 'center',
     },
+    footerTopButton: {
+        flex: .5,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      footerBottomButton: {
+        flex: .5,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     optionsContainer: {
         position: 'absolute',
         bottom: 80,
