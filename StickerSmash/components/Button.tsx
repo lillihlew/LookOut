@@ -2,85 +2,64 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { useState } from 'react';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 type Props = {
   label: string;
-  theme: string;
+  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout';
   onPress?: () => void;
+  // color: 'valid'|'invalid'|'null';
 };
 
+const iconMapping = {
+  photo: <FontAwesome name="picture-o" size={18} color="#25292e" />,
+  date: <Fontisto name="date" size={24} color="black" />,
+  Private: <AntDesign name="lock1" size={24} color="black" />,
+  Public: <AntDesign name="unlock" size={24} color="black" />,
+  info: <Ionicons name="information-circle-outline" size={24} color="black" />,
+  reset: <EvilIcons name="undo" size={24} color="black" />,
+  done: <MaterialIcons name="done" size={24} color="black" />,
+  back: <Ionicons name="arrow-back" size={24} color="black" />,
+  add: <Ionicons name="add" size={24} color="black" />,
+  signin: <FontAwesome name="sign-in" size={24} color="black" />,
+  signout: <FontAwesome name="sign-out" size={24} color="black" />
+};
 
+// const colorMapping = {
+//   valid: '#e1ef7b',
+//   invalid: '#079057',
+//   null: '#fff'
+// };
 
-export default function Button({ label, theme, onPress}: Props) {
-  if (theme === 'photo') {
-    return (
-      <View
-        style={[
-          styles.buttonContainer,
-          { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
-        ]}>
-        <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
-          onPress={onPress}>
-          <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon} />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
-        </Pressable>
-      </View>
-    );
-  }
+export default function Button({ label, theme, onPress}: Props) { //, color}: Props) {
+  const renderIcon = iconMapping[theme] || null;
+  // const renderColor = colorMapping[color];
 
-  else if (theme === 'date') {
+  //different try that resulted in a 'too many renders' error
+  // const [color, setColor] = useState(styles.button.backgroundColor);
+  // if(theme==='add'){
+  //   setColor('#24562b');
+  // }
+
+    if(theme !== null){
       return (
         <View
           style={[
             styles.buttonContainer,
-            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
+            //{ borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
           ]}>
           <Pressable
-            style={[styles.button, { backgroundColor: '#fff' }]}
+            style={[styles.button]} //, { backgroundColor: renderColor }]}
             onPress={onPress}>
-            <Fontisto name="date" size={24} color="black" />
-            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+            {renderIcon}
+            <Text style={styles.buttonLabel}>{label}</Text>
           </Pressable>
         </View>
       );
-    }
-  
-    else if (theme === 'Private') {
-      return (
-        <View
-          style={[
-            styles.buttonContainer,
-            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
-          ]}>
-          <Pressable
-            style={[styles.button, { backgroundColor: '#fff' }]}
-            onPress={onPress}>
-            <AntDesign name="lock1" size={24} color="black" />
-            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
-          </Pressable>
-        </View>
-      );
-    }
-
-    else if (theme === 'Public') {
-      return (
-        <View
-          style={[
-            styles.buttonContainer,
-            { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
-          ]}>
-          <Pressable
-            style={[styles.button, { backgroundColor: '#fff' }]}
-            onPress={onPress}>
-            <AntDesign name="unlock" size={24} color="black" />
-            <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
-          </Pressable>
-        </View>
-      );
-    }
-
-  return (
+  } else return (
     <View style={styles.buttonContainer}>
       <Pressable style={styles.button} onPress={onPress}>
         <Text style={styles.buttonU}>{label}</Text>
@@ -105,12 +84,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: "#c7e9c0",
   },
   buttonIcon: {
     paddingRight: 8,
   },
   buttonLabel: {
-    color: '#fff',
+    color: '#25292e',
     fontSize: 16,
   },
   buttonU:{

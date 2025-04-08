@@ -25,7 +25,6 @@ async function addUser(
 }
 
 
-
 export default function Index() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -111,7 +110,8 @@ export default function Index() {
   
   return (
     <View style={SharedStyles.container}>
-        <Text style = {SharedStyles.textWhite}> Username:</Text>
+      <View style = {styles.container}>
+        <Text style = {styles.textWhite}>Username:</Text>
         <TextInput 
             value={username}
             onChangeText = {(newValue: any) => {
@@ -121,7 +121,7 @@ export default function Index() {
             placeholder = {"Enter your username"}
             placeholderTextColor = "#fff"
         />
-        <Text style = {SharedStyles.textWhite}> Email:</Text>
+        <Text style = {styles.textWhite}>Email:</Text>
         <TextInput 
             value={email}
             onChangeText = {(newValue: any) => {
@@ -132,7 +132,7 @@ export default function Index() {
             placeholder = {"Enter your email address"}
             placeholderTextColor = "#fff"
         />
-        <Text style = {SharedStyles.textWhite}>Password:</Text>
+        <Text style = {styles.textWhite}>Password:</Text>
         <TextInput 
             value={password}
             onChangeText = {(newValue: any) => {
@@ -142,15 +142,15 @@ export default function Index() {
             placeholder = {"Enter your password"}
             placeholderTextColor = "#fff"
         />
-    
-    <View style={styles.footerContainer}>
+      </View>
+    <View style={SharedStyles.footerContainer}>
       <Button 
         onPress={signIn}
-        theme="primary" 
+        theme="signin" 
         label="Sign in" />
          <Button 
         onPress={createAccount}
-        theme="primary" 
+        theme="add" 
         label="Create Account" />
      
     </View>
@@ -163,41 +163,10 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
+    alignItems: 'flex-start', 
   },
   textWhite: {
     color: '#fff',
-  },
-  textBlue: {
-    color: '#9ff'
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  image: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
-  },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: 'center',
-  },
-  optionsContainer: {
-    position: 'absolute',
-    bottom: 80,
-  },
-  optionsRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
+    marginLeft: 20,
+},
 });

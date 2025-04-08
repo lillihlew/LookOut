@@ -66,7 +66,7 @@ const ProfileScreen = () => {
       />
       <Button
        onPress={handleSignOut}
-       theme="primary" 
+       theme="signout" 
        label="Sign out" />
     </View>
   );

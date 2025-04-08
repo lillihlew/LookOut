@@ -45,11 +45,14 @@ export default function Index() {
   //titles & descriptions
   const [selectedTitle, setSelectedTitle] = useState('');
   const [selectedDescription, setSelectedDescription] = useState('');
+  const [titleColor, setTitleColor] = useState<boolean>(false);
+  const [descColor, setDescColor] = useState<boolean>(false);
 
   //images
   const [usingImage, setUsingImage] = useState<boolean>(false);
   const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+  const [imageColor, setImageColor] = useState<boolean>(false);
 
   //control booleans
   const [usingNothing, setUsingNothing] = useState<boolean>(true);
@@ -59,8 +62,9 @@ export default function Index() {
 
   //dates
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [dateButtonLabel, setDateButtonLabel] = useState<string>("Choose Date & Time");
- 
+  const [dateButtonLabel, setDateButtonLabel] = useState<string>("  Choose Date & Time");
+  const [dateColor, setDateColor] = useState<boolean>(false);
+
   //privacy
   const [selectedPrivacyOn, setSelectedPrivacyOn] = useState<boolean>(false);
     
@@ -81,11 +85,13 @@ export default function Index() {
   }
 
   const togglePhotoButtonLabel = () => {
-    setPhotoButtonLabel("Change Photo");
+    setPhotoButtonLabel(" Change Photo");
+    setImageColor(true);
   }
 
   const toggleDateButtonLabel = () => {
     setDateButtonLabel("Change Date and Time");
+    setDateColor(true);
   }
 
   const toggleWorking = () =>{
@@ -99,14 +105,18 @@ export default function Index() {
     //titles & descriptions
     setSelectedDescription('');
     setSelectedTitle('');
+    setTitleColor(false);
+    setDescColor(false);
     //images
     setSelectedImage(placeholderImage);
     setPhotoButtonLabel("Choose Photo");
+    setImageColor(false);
     //control booleans
     setUsingNothing(true);
     setWorking(true);
     //dates
     setSelectedDate(new Date());
+    setDateColor(false);
     //privacy
     setSelectedPrivacyOn(false);
   }
@@ -135,7 +145,8 @@ export default function Index() {
                     toggleUsingDateMobile();
                   }
                   toggleUsingNothing();
-                }}/>
+                }}
+                />
             <PublicOrPrivate
               selectedPrivacyOn = {selectedPrivacyOn}
               setSelectedPrivacyOn ={setSelectedPrivacyOn}
@@ -147,7 +158,7 @@ export default function Index() {
               setSelectedDescription = {setSelectedDescription}/>
             <Button 
                 label = "Review event information" 
-                theme = "primary"
+                theme = "info"
                 onPress={() =>{
                   console.log("selected privacy on save: ", selectedPrivacyOn);
                   toggleWorking();
@@ -155,7 +166,7 @@ export default function Index() {
             />
             <Button 
                 label = "Reset event information" 
-                theme = "primary"
+                theme = "reset"
                 onPress={() =>{
                   wipe();
                 }}
@@ -173,6 +184,7 @@ export default function Index() {
                     selectedImage = {selectedImage}
                     setSelectedImage={setSelectedImage}
                     setPhotoButtonLabel={setPhotoButtonLabel}
+                    photoButtonLabel={photoButtonLabel}
                     />
                 </View>
                 <View style = {SharedStyles.footerContainer}> 
@@ -184,7 +196,7 @@ export default function Index() {
                         toggleUsingNothing();
                         togglePhotoButtonLabel();
                       }}
-                      theme = "primary"
+                      theme = "done"
                       label="Done" />
                     </View>
                 </View>
@@ -206,7 +218,7 @@ export default function Index() {
                           toggleUsingDateMobile();
                         }
                         toggleUsingNothing();}}
-                      theme = "primary"
+                      theme = "done"
                       label="Done" />
                   </View>
                 ):(
@@ -224,7 +236,7 @@ export default function Index() {
                           toggleUsingDateMobile();
                         }
                         toggleUsingNothing();}}
-                      theme = "primary"
+                      theme = "done"
                       label="Done" />
                   </View>
                 )}
@@ -246,14 +258,14 @@ export default function Index() {
         
         <Button 
                 label = "Alter event information" 
-                theme = "primary"
+                theme = "back"
                 onPress={() =>{
                   toggleWorking();
                 }}
             />
       <Button
   label="Post event"
-  theme="primary"
+  theme="add"
   onPress={async () => {
     console.log("Trying to post event!");
     if (selectedTitle && selectedDescription && selectedImage && selectedDate) {
