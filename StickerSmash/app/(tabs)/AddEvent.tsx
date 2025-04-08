@@ -13,17 +13,12 @@ import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
-import {firebaseConfig} from "../../firebaseConfig"
+import {firebaseConfig, app, db} from "../../firebaseConfig"
 import { getFirestore, addDoc, collection, getDocs, } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import SharedStyles from '../styles';
 import { router } from 'expo-router';
-import { initializeApp } from 'firebase/app';
 import DisplayEvent from '@/components/DisplayEvent';
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 
 
 async function addEvent(

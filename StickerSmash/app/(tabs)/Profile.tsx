@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import SharedStyles from '../styles';
+import Button from '../../components/Button'
+import { signOut,  } from "firebase/auth";
+import {auth} from "../../firebaseConfig"
+import { useRouter} from 'expo-router';
+
 
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width / 2 - 24; // 2 columns with spacing
 
 const ProfileScreen = () => {
+  const router = useRouter();
+  
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth); // Use the imported auth object
+      // Sign-out successful.
+      console.log("User signed out successfully.");
+      // Optionally, redirect the user to the sign-in screen or perform other actions.
+      router.push('/SignIn'); // Use router to navigate to sign-in
+    } catch (error: any) {
+      // An error happened.
+      console.error("Sign-out error:", error.message);
+      // Handle the error (e.g., display an error message to the user).
+    }
+  };
+
   const [likedEvents, setLikedEvents] = useState([
     { id: 1, title: 'Indie Night', attendees: 12 },
     { id: 2, title: 'Trivia Night', attendees: 8 },
@@ -43,6 +64,10 @@ const ProfileScreen = () => {
         numColumns={2}
         columnWrapperStyle={styles.row}
       />
+      <Button
+       onPress={handleSignOut}
+       theme="primary" 
+       label="Sign out" />
     </View>
   );
 };
