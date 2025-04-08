@@ -79,12 +79,12 @@ export default function Index() {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      sendEmailVerification(user)
-        .then(() => {
-          // Email verification sent!
-          // ...
-          setPrintCheckEmail(true);
-        });
+      // sendEmailVerification(user)
+      //   .then(() => {
+      //     // Email verification sent!
+      //     // ...
+      //     setPrintCheckEmail(true);
+      //   });
     })
     .catch((error) => {
       const errorCode = error.code;
