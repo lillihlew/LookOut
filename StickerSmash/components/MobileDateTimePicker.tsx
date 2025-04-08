@@ -31,11 +31,3 @@ const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel
 }
 
 export default MobileDateTimePicker;
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#edc9f9',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }})
