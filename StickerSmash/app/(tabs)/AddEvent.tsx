@@ -1,21 +1,13 @@
-import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
-import { Image } from 'expo-image';
-//import ImageViewer from '@/components/ImageViewer';
+import { View, StyleSheet, Platform } from 'react-native';
 import Button from '@/components/Button';
-import * as ImagePicker from "expo-image-picker";
-import { type ImageSource } from 'expo-image';
-import * as MediaLibrary from 'expo-media-library';
-import React, { useState, useRef, useEffect } from 'react';
-import { captureRef } from 'react-native-view-shot';
-import domtoimage from "dom-to-image";
+import React, { useState } from 'react';
 import OurTextInput from '@/components/OurTextInput';
 import MobileDateTimePicker from '@/components/MobileDateTimePicker';
 import OurImageViewer from '@/components/OurImageViewer';
 import PublicOrPrivate from '@/components/PublicOrPrivate';
 import WebDateTimePicker from '@/components/WebDateTimePicker';
-import {firebaseConfig, app, db} from "../../firebaseConfig"
-import { getFirestore, addDoc, collection, getDocs, } from 'firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
+import {db} from "../../firebaseConfig"
+import {addDoc, collection } from 'firebase/firestore';
 import SharedStyles from '../styles';
 import { router } from 'expo-router';
 import DisplayEvent from '@/components/DisplayEvent';

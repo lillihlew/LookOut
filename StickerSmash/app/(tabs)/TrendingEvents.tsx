@@ -1,24 +1,11 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import SharedStyles from '../styles';
-import DisplayEvent from '@/components/DisplayEvent'
-import { useState } from 'react';
 
-const placeholderImage = require('@/assets/images/background-image.png');
-
-export default function Favorites() {
-  let [placeholderDate] = useState(new Date());
-  let placeholderTitle = "Title";
-  let placeholderDescription = "Description";
-  let [placeholderPrivacy] = useState<boolean>(true);
+export default function TrendingEvents() {
 
   return (
     <View style={SharedStyles.container}>
-      {/* <DisplayEvent 
-        selectedImage = {placeholderImage} 
-        selectedDate = {placeholderDate} 
-        selectedTitle = {placeholderTitle} 
-        selectedDescription = {placeholderDescription} 
-        selectedPrivacyOn = {placeholderPrivacy}></DisplayEvent> */}
+      
     </View>
   );
 }

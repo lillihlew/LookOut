@@ -1,7 +1,7 @@
 import {StyleSheet, Platform, Button, View, Text} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker"
+import DateTimePicker from "@react-native-community/datetimepicker";
 import {useState} from "react";
-
+import SharedStyles from "../app/styles";
 
 const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel}:any) => {
     const today=new Date();
@@ -12,7 +12,7 @@ const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel
     };
 
     return(
-        <View style = {styles.container}>
+        <View style = {SharedStyles.container}>
             <DateTimePicker
                 value = {selectedDate}
                 mode = {"date"}
@@ -26,7 +26,6 @@ const MobileDateTimePicker = ({selectedDate, setSelectedDate, setDateButtonLabel
                 is24Hour = {true}
                 onChange = {onChange}
             />
-            <Text>{selectedDate.toLocaleString()}</Text> 
         </View>
     )
 }
@@ -36,7 +35,7 @@ export default MobileDateTimePicker;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#25292e',
+      backgroundColor: '#edc9f9',
       alignItems: 'center',
       justifyContent: 'center',
     }})

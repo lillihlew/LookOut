@@ -1,21 +1,15 @@
-import { Image } from 'expo-image';
 import ImageViewer from '@/components/ImageViewer';
 import Button from '@/components/Button';
 import * as ImagePicker from "expo-image-picker";
-import { type ImageSource } from 'expo-image';
 import * as MediaLibrary from 'expo-media-library';
-import React, { useState, useRef, useEffect } from 'react';
-import { Text, View, StyleSheet, Platform, TextInput, TouchableOpacity, Pressable } from 'react-native';
-import { captureRef } from 'react-native-view-shot';
+import React, { useRef, useEffect } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import SharedStyles from '@/app/styles';
 
 const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:any) => {
     const PlaceholderImage = require('@/assets/images/background-image.png');
     const imageRef = useRef(null);
     const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-    // const [showAppOptions, setShowAppOptions] = useState<boolean>(false); //here
-    // const [photoButtonLabel, setPhotoButtonLabel] = useState<string>("Choose Photo");
-      
     
     useEffect(() =>{
         if(permissionResponse?.granted){
@@ -38,11 +32,8 @@ const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:a
         if (!result.canceled) {
           setSelectedImage(result.assets[0].uri);
           setPhotoButtonLabel("Change Photo");
-          // setValidImage(true);
-        //   setShowAppOptions(true); //here
         } else {
           alert('You did not select any image.');
-          // setValidImage(false);
         }
       };
 
@@ -68,14 +59,6 @@ const OurImageViewer = ({selectedImage, setSelectedImage, setPhotoButtonLabel}:a
 
 
 export default OurImageViewer;
-
-// export function getImage (){
-//     if(validImage){
-//       return selectedImage;
-//     }else{
-//       return PlaceholderImage;
-//     }
-// }
 
 const styles = StyleSheet.create({
     container: {
@@ -152,38 +135,3 @@ const styles = StyleSheet.create({
     },
 })
 
-
-//not using this now but we're keeping it for later so we can save the image to the event (it went just before return)
-    // const onSaveImageAsync = async () => {
-    //     if(Platform.OS === "web"){
-    //     try {
-    //         //@ts-ignore
-    //         const dataUrl = await domtoimage.toJpeg(imageRef.current, {
-    //         quality: 0.95,
-    //         width: 320,
-    //         height: 440,
-    //         });
-
-    //         let link = document.createElement('a');
-    //         link.download = 'sticker-smash.jpeg';
-    //         link.href = dataUrl;
-    //         link.click();
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    //     } else {
-    //     try {
-    //         const localUri = await captureRef(imageRef, {
-    //         height: 440,
-    //         quality: 1,
-    //         });
-    
-    //         await MediaLibrary.saveToLibraryAsync(localUri);
-    //         if (localUri) {
-    //         alert('Saved!');
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    //     }
-    // };

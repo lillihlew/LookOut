@@ -26,8 +26,6 @@ const OurTextInput = ({selectedTitle, setSelectedTitle, selectedDescription, set
                 placeholder = {"Enter your event description"}
                 placeholderTextColor = "#fff"
             />
-            {/* <Text> Event title: {selectedTitle} </Text>
-            <Text> Event description: {selectedDescription}</Text> */}
         </View>
     );
 }

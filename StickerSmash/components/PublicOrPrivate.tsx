@@ -36,7 +36,6 @@ const PublicOrPrivate = ({selectedPrivacyOn, setSelectedPrivacyOn}: any) => {
                     }}
                 >
             </Button>
-            {/* <Text>{text}</Text> */}
         </View>
     );
 };

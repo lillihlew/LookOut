@@ -20,7 +20,7 @@ const ProfileScreen = () => {
       // Sign-out successful.
       console.log("User signed out successfully.");
       // Optionally, redirect the user to the sign-in screen or perform other actions.
-      router.push('/SignIn'); // Use router to navigate to sign-in
+      router.push('/'); // Use router to navigate to sign-in
     } catch (error: any) {
       // An error happened.
       console.error("Sign-out error:", error.message);
