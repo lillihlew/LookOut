@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import SharedStyles from '../styles';
-import Button from '../../components/Button'
+import Button from '../../components/Button';
 import { signOut,  } from "firebase/auth";
 import {auth} from "../../firebaseConfig"
 import { useRouter} from 'expo-router';
+import Settings from '../../components/Settings';
 
 
 
@@ -12,22 +13,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width / 2 - 24; // 2 columns with spacing
 
 const ProfileScreen = () => {
-  const router = useRouter();
   
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth); // Use the imported auth object
-      // Sign-out successful.
-      console.log("User signed out successfully.");
-      // Optionally, redirect the user to the sign-in screen or perform other actions.
-      router.replace('/'); // Use router to navigate to sign-in
-    } catch (error: any) {
-      // An error happened.
-      console.error("Sign-out error:", error.message);
-      // Handle the error (e.g., display an error message to the user).
-    }
-  };
-
   const [likedEvents, setLikedEvents] = useState([
     { id: 1, title: 'Indie Night', attendees: 12 },
     { id: 2, title: 'Trivia Night', attendees: 8 },
@@ -44,32 +30,48 @@ const ProfileScreen = () => {
       <Text style={styles.attendees}>{item.attendees} going</Text>
     </View>
   );
+  const [settings, setSettings] = useState<boolean>(false);
+  const toggleSettings = () => {
+    setSettings(!settings);
+  }
 
   return (
     <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
-      <Text style={styles.sectionTitle}>Events You Liked</Text>
-      <FlatList
-        data={likedEvents}
-        renderItem={renderCard}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-      />
+      {settings ? (
+        <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
+          <Settings/>
+          <Button
+            onPress={toggleSettings}
+            theme="back" 
+            label="Back to Profile" />
+        </View>
+      ) : (
+        <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
+          <Text style={styles.sectionTitle}>Events You Liked</Text>
+          <FlatList
+            data={likedEvents}
+            renderItem={renderCard}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            columnWrapperStyle={styles.row}
+          />
 
-      <Text style={styles.sectionTitle}>Your Created Events</Text>
-      <FlatList
-        data={createdEvents}
-        renderItem={renderCard}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-      />
-      <Button
-       onPress={handleSignOut}
-       theme="signout" 
-       label="Sign out" />
+          <Text style={styles.sectionTitle}>Your Created Events</Text>
+          <FlatList
+            data={createdEvents}
+            renderItem={renderCard}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            columnWrapperStyle={styles.row}
+          />
+          <Button
+          onPress={toggleSettings}
+          theme="settings" 
+          label="Settings" />
+        </View>
+      )}
     </View>
-  );
+  )
 };
 
 const styles = StyleSheet.create({

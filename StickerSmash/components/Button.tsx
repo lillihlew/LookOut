@@ -9,7 +9,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 type Props = {
   label: string;
-  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout';
+  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout' | 'settings';
   onPress?: () => void;
   // color: 'valid'|'invalid'|'null';
 };
@@ -25,7 +25,8 @@ const iconMapping = {
   back: <Ionicons name="arrow-back" size={24} color="black" />,
   add: <Ionicons name="add" size={24} color="black" />,
   signin: <FontAwesome name="sign-in" size={24} color="black" />,
-  signout: <FontAwesome name="sign-out" size={24} color="black" />
+  signout: <FontAwesome name="sign-out" size={24} color="black" />,
+  settings: <Ionicons name="settings-outline" size={24} color="black" />,
 };
 
 const colorMapping = {
@@ -40,9 +41,10 @@ const colorMapping = {
   add: '#589100',
   signin: '#589100',
   signout: '#589100',
+  settings: '589100',
 };
 
-export default function Button({ label, theme, onPress}: Props) { //, color}: Props) {
+export default function Button({ label, theme, onPress}: Props) { 
   const renderIcon = iconMapping[theme] || null;
   let renderColor = colorMapping[theme];
   if (theme === null) renderColor = styles.button.backgroundColor;
@@ -52,7 +54,6 @@ export default function Button({ label, theme, onPress}: Props) { //, color}: Pr
         <View
           style={[
             styles.buttonContainer,
-            //{ borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
           ]}>
           <Pressable
             style={[styles.button, { backgroundColor: renderColor }]}
