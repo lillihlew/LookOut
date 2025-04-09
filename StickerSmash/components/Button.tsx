@@ -41,7 +41,7 @@ const colorMapping = {
   add: '#589100',
   signin: '#589100',
   signout: '#589100',
-  settings: '589100',
+  settings: '#589100',
 };
 
 export default function Button({ label, theme, onPress}: Props) { 

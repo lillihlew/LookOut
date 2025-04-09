@@ -160,7 +160,6 @@ export default function Index() {
                 label = "Review event information" 
                 theme = "info"
                 onPress={() =>{
-                  console.log("selected privacy on save: ", selectedPrivacyOn);
                   toggleWorking();
                 }}
             />
@@ -250,7 +249,7 @@ export default function Index() {
         {/* Display the selected details*/}
 
         <DisplayEvent 
-        selectedImage = {selectedImage ? selectedImage : placeholderImage} 
+        selectedImage = {selectedImage ? selectedImage : "No image"} 
         selectedDate = {selectedDate ? selectedDate : new Date().toLocaleString()} 
         selectedTitle = {selectedTitle ? selectedTitle : "No title"} 
         selectedDescription = {selectedDescription ? selectedDescription : "No description"} 
