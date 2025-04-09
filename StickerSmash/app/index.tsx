@@ -117,9 +117,9 @@ export default function Index() {
             onChangeText = {(newValue: any) => {
                 setUsername(newValue);
             }}
-            style = {SharedStyles.inputText}
+            style = {styles.inputText}
             placeholder = {"Enter your username"}
-            placeholderTextColor = "#fff"
+            placeholderTextColor = "#589100"
         />
         <Text style = {styles.textWhite}>Email:</Text>
         <TextInput 
@@ -128,9 +128,9 @@ export default function Index() {
                 setEmail(newValue);
                 
             }}
-            style = {SharedStyles.inputText}
+            style = {styles.inputText}
             placeholder = {"Enter your email address"}
-            placeholderTextColor = "#fff"
+            placeholderTextColor = "#589100"
         />
         <Text style = {styles.textWhite}>Password:</Text>
         <TextInput 
@@ -138,9 +138,9 @@ export default function Index() {
             onChangeText = {(newValue: any) => {
                 setPassword(newValue);
             }}
-            style = {SharedStyles.inputText}
+            style = {styles.inputText}
             placeholder = {"Enter your password"}
-            placeholderTextColor = "#fff"
+            placeholderTextColor = "#589100"
         />
       </View>
     <View style={SharedStyles.footerContainer}>
@@ -166,7 +166,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start', 
   },
   textWhite: {
-    color: '#fff',
+    color: '#589100',
     marginLeft: 20,
+    fontWeight: 'bold',
+  },inputText:{
+  borderWidth: 1,
+  borderColor: "#589100",
+  color: "#589100",
+  borderRadius: 18,
+  width: 316,
+  height: 68,
+  padding: 7,
+  fontFamily: 'Arial',
+  marginHorizontal: 20,
+  alignItems: 'center',
 },
 });

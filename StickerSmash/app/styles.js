@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 const SharedStyles = StyleSheet.create({container: {
     flex: 1,
         // backgroundColor: '#ffdbe9',
-        backgroundColor: '#f7b36d',
+        // backgroundColor: '#f7b36d',
+        backgroundColor: '#f5f5dc',
         alignItems: 'center',
         justifyContent: 'center',
         
@@ -51,8 +52,8 @@ const SharedStyles = StyleSheet.create({container: {
     },
     inputText:{
         borderWidth: 1,
-        borderColor: "#c7e9c0",
-        color: "#c7e9c0",
+        borderColor: "#cbff7c",
+        color: "#cbff7c",
         borderRadius: 18,
         width: 316,
         height: 68,

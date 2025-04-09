@@ -28,21 +28,24 @@ const iconMapping = {
   signout: <FontAwesome name="sign-out" size={24} color="black" />
 };
 
-// const colorMapping = {
-//   valid: '#e1ef7b',
-//   invalid: '#079057',
-//   null: '#fff'
-// };
+const colorMapping = {
+  photo: '#cbff7c',
+  date: '#cbff7c',
+  Private: '#cbff7c',
+  Public: '#cbff7c',
+  info: '#589100',
+  reset: '#589100',
+  done: '#589100',
+  back: '#589100',
+  add: '#589100',
+  signin: '#589100',
+  signout: '#589100',
+};
 
 export default function Button({ label, theme, onPress}: Props) { //, color}: Props) {
   const renderIcon = iconMapping[theme] || null;
-  // const renderColor = colorMapping[color];
-
-  //different try that resulted in a 'too many renders' error
-  // const [color, setColor] = useState(styles.button.backgroundColor);
-  // if(theme==='add'){
-  //   setColor('#24562b');
-  // }
+  let renderColor = colorMapping[theme];
+  if (theme === null) renderColor = styles.button.backgroundColor;
 
     if(theme !== null){
       return (
@@ -52,7 +55,7 @@ export default function Button({ label, theme, onPress}: Props) { //, color}: Pr
             //{ borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
           ]}>
           <Pressable
-            style={[styles.button]} //, { backgroundColor: renderColor }]}
+            style={[styles.button, { backgroundColor: renderColor }]}
             onPress={onPress}>
             {renderIcon}
             <Text style={styles.buttonLabel}>{label}</Text>
