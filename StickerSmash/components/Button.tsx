@@ -6,12 +6,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useState } from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 type Props = {
   label: string;
-  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout' | 'settings';
+  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout' | 'settings' | 'edit';
   onPress?: () => void;
-  // color: 'valid'|'invalid'|'null';
+  disabled?: boolean;
 };
 
 const iconMapping = {
@@ -27,6 +28,7 @@ const iconMapping = {
   signin: <FontAwesome name="sign-in" size={24} color="black" />,
   signout: <FontAwesome name="sign-out" size={24} color="black" />,
   settings: <Ionicons name="settings-outline" size={24} color="black" />,
+  edit: <FontAwesome5 name="edit" size={24} color="black" />
 };
 
 const colorMapping = {
@@ -42,9 +44,10 @@ const colorMapping = {
   signin: '#589100',
   signout: '#589100',
   settings: '#589100',
+  edit: '#589100',
 };
 
-export default function Button({ label, theme, onPress}: Props) { 
+export default function Button({ label, theme, onPress, disabled}: Props) { 
   const renderIcon = iconMapping[theme] || null;
   let renderColor = colorMapping[theme];
   if (theme === null) renderColor = styles.button.backgroundColor;
@@ -57,7 +60,8 @@ export default function Button({ label, theme, onPress}: Props) {
           ]}>
           <Pressable
             style={[styles.button, { backgroundColor: renderColor }]}
-            onPress={onPress}>
+            onPress={onPress}
+            disabled={disabled}>
             {renderIcon}
             <Text style={styles.buttonLabel}>{label}</Text>
           </Pressable>
@@ -65,7 +69,7 @@ export default function Button({ label, theme, onPress}: Props) {
       );
   } else return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={onPress}>
+      <Pressable style={styles.button} onPress={onPress} disabled={disabled}>
         <Text style={styles.buttonU}>{label}</Text>
       </Pressable>
     </View>

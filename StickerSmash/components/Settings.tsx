@@ -6,6 +6,8 @@ import { auth, db } from '@/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import Button from '../components/Button'
 import { useEffect, useState } from 'react';
+import ChangePassword from './UpdatePassword';
+import ChangeUsername from './ChangeUsername';
 
 export default function Settings (){
     const router = useRouter();
@@ -50,7 +52,8 @@ export default function Settings (){
           // Handle the error (e.g., display an error message to the user).
         }
       };
-    
+    const [usingChangePassword, setUsingChangePassword] = useState<boolean>(false);
+    const [usingChangeUsername, setUsingChangeUsername] = useState<boolean>(false);
   return (
     <View>
         <Text style = {styles.inputText}>Username: {username}</Text>
@@ -59,6 +62,22 @@ export default function Settings (){
              onPress={handleSignOut}
              theme="signout" 
              label="Sign out" />
+        <Button
+            label={"Change Username"}
+            onPress={() =>{
+                setUsingChangeUsername(true);
+                }}
+            theme = 'settings'
+            />
+        <Button
+            label={"Change Password"}
+            onPress={() =>{
+                setUsingChangePassword(true);
+                }}
+            theme = 'settings'
+            />
+        {usingChangeUsername ? (<ChangeUsername usingChangeUsername={usingChangeUsername} setUsingChangeUsername={setUsingChangeUsername}/>) : <View/>}
+        {usingChangePassword ? (<ChangePassword setUsingChangePassword={setUsingChangePassword} usingChangePassword={usingChangePassword}/>) : <View/>}
     </View>
   );
 }
