@@ -6,6 +6,7 @@ import { signOut,  } from "firebase/auth";
 import {auth} from "../../firebaseConfig"
 import { useRouter} from 'expo-router';
 import Settings from '../../components/Settings';
+import Groups from '@/components/Groups';
 
 
 
@@ -30,47 +31,86 @@ const ProfileScreen = () => {
       <Text style={styles.attendees}>{item.attendees} going</Text>
     </View>
   );
+
+  const [usingNothing, setUsingNothing] = useState<boolean>(true);
   const [settings, setSettings] = useState<boolean>(false);
+  const [usingGroups, setUsingGroups] = useState<boolean>(false);
+
   const toggleSettings = () => {
     setSettings(!settings);
   }
-
+  const toggleUsingNothing = () => {
+    setUsingNothing(!usingNothing);
+  }
+  const toggleUsingGroups = () => {
+    setUsingGroups(!usingGroups);
+  }
+  
   return (
     <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
       {settings ? (
-        <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
+        <View>
           <Settings/>
           <Button
-            onPress={toggleSettings}
+            onPress={()=>{
+              toggleSettings(); 
+              toggleUsingNothing()}}
             theme="back" 
             label="Back to Profile" />
         </View>
-      ) : (
-        <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
-          <Text style={styles.sectionTitle}>Events You Liked</Text>
-          <FlatList
-            data={likedEvents}
-            renderItem={renderCard}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={2}
-            columnWrapperStyle={styles.row}
-          />
+      ) : (<View/>)}
+        {usingGroups ? (
+          <View>
+            <Groups
+              // usingGroups={usingGroups}
+              // setUsingGroups={setUsingGroups}
+            />
+            <Button
+              onPress={()=>{
+                toggleUsingGroups();
+                toggleUsingNothing();
+              }}
+              theme="back" 
+              label="Back to Profile" />
+          </View>
+        ) : (<View/>)}
+      {usingNothing ? (
+          
+          <View style={[styles.container, {backgroundColor: SharedStyles.container.backgroundColor}]}>
+            <Text style={styles.sectionTitle}>Events You Liked</Text>
+            <FlatList
+              data={likedEvents}
+              renderItem={renderCard}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={2}
+              columnWrapperStyle={styles.row}
+            />
 
-          <Text style={styles.sectionTitle}>Your Created Events</Text>
-          <FlatList
-            data={createdEvents}
-            renderItem={renderCard}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={2}
-            columnWrapperStyle={styles.row}
-          />
-          <Button
-          onPress={toggleSettings}
-          theme="settings" 
-          label="Settings" />
-        </View>
-      )}
-    </View>
+            <Text style={styles.sectionTitle}>Your Created Events</Text>
+            <FlatList
+              data={createdEvents}
+              renderItem={renderCard}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={2}
+              columnWrapperStyle={styles.row}
+            />
+            <Button
+            onPress={()=>{
+              toggleSettings(); 
+              toggleUsingNothing();}}
+            theme="settings" 
+            label="Settings" />
+            <Button
+                label={"View/Alter Groups"}
+                onPress={() =>{
+                    setUsingGroups(true);
+                    toggleUsingNothing();
+                    }}
+                theme = 'groups'
+              />
+      </View>) : (<View/>)}
+      </View>
+      
   )
 };
 

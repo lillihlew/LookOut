@@ -8,6 +8,7 @@ import Button from '../components/Button'
 import { useEffect, useState } from 'react';
 import ChangePassword from './UpdatePassword';
 import ChangeUsername from './ChangeUsername';
+import Groups from './Groups';
 
 export default function Settings (){
     const router = useRouter();

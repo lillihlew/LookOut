@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import Button from '@/components/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter} from 'expo-router';
 import SharedStyles from './styles';
 import {createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, fetchSignInMethodsForEmail, signInWithEmailAndPassword } from "firebase/auth";
@@ -9,25 +9,26 @@ import {auth, db} from "../firebaseConfig"
 
 async function addUser(username: string, email: string) {
   try {
-    // Check if auth.currentUser exists
     if (!auth.currentUser) {
       console.warn("No user currently signed in.");
-      return null; // Or handle this case as needed
+      return null; 
     }
 
     // Use the user's UID as the document ID
     const userDocRef = doc(db, "UserCol", auth.currentUser.uid);
-    await setDoc(userDocRef, { // Use setDoc to create/overwrite document
+    await setDoc(userDocRef, { 
       username: username,
       email: email,
       createdAt: new Date().toISOString(),
+      groups: [],
     });
-    return userDocRef; // Return the document reference
+    return userDocRef; 
   } catch (e: any) {
     console.error(e);
-    return null; // Or handle this case as needed
+    return null; 
   }
 }
+
 
 
 export default function Index() {
@@ -66,7 +67,7 @@ export default function Index() {
               } catch (reloadError: any) {
                 console.error("Error reloading user:", reloadError);
               }
-            });
+            })
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -92,19 +93,23 @@ export default function Index() {
     });
   }
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const isVerified = user.emailVerified;
-      if (isVerified) {
-        setLoggedIn(true);
-        goToHome();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const isVerified = user.emailVerified;
+        if (isVerified) {
+          setLoggedIn(true);
+          goToHome(); // Only redirect here if email is verified
+        } else {
+          setPrintCheckEmail(true);
+        }
       } else {
-        setPrintCheckEmail(true);
+        setLoggedIn(false);
       }
-    } else {
-      setLoggedIn(false);
-    }
-  });
+    });
+
+    return () => unsubscribe(); // Clean up the listener
+  }, []);
 
   
   return (

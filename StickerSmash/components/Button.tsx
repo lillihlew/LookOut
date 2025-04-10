@@ -7,10 +7,13 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useState } from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 type Props = {
   label: string;
-  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 'back' | 'add' | 'signin' | 'signout' | 'settings' | 'edit';
+  theme: 'photo' | 'date' | 'Private' | 'Public' | 'info' | 'reset' | 'done' | 
+          'back' | 'add' | 'signin' | 'signout' | 'settings' | 'edit' | 'groups' |
+          'newGroup';
   onPress?: () => void;
   disabled?: boolean;
 };
@@ -28,7 +31,9 @@ const iconMapping = {
   signin: <FontAwesome name="sign-in" size={24} color="black" />,
   signout: <FontAwesome name="sign-out" size={24} color="black" />,
   settings: <Ionicons name="settings-outline" size={24} color="black" />,
-  edit: <FontAwesome5 name="edit" size={24} color="black" />
+  edit: <FontAwesome5 name="edit" size={24} color="black" />,
+  groups: <FontAwesome6 name="people-group" size={24} color="black" />,
+  newGroup: <AntDesign name="addusergroup" size={24} color="black" />,
 };
 
 const colorMapping = {
@@ -45,11 +50,19 @@ const colorMapping = {
   signout: '#589100',
   settings: '#589100',
   edit: '#589100',
+  groups: '#cbff7c',
+  newGroup: '#cbff7c',
 };
 
 export default function Button({ label, theme, onPress, disabled}: Props) { 
   const renderIcon = iconMapping[theme] || null;
   let renderColor = colorMapping[theme];
+  // const [backgroundColor, setBackgroundColor] = useState('');
+  // if(disabled){
+  //   setBackgroundColor(renderColor);
+  // }else{
+  //   setBackgroundColor('#808080');
+  // }
   if (theme === null) renderColor = styles.button.backgroundColor;
 
     if(theme !== null){
