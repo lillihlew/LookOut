@@ -4,23 +4,28 @@ import { useState } from 'react';
 import { useRouter} from 'expo-router';
 import SharedStyles from './styles';
 import {createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, fetchSignInMethodsForEmail, signInWithEmailAndPassword } from "firebase/auth";
-import {addDoc, collection } from 'firebase/firestore';
+import {addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import {auth, db} from "../firebaseConfig"
 
-async function addUser(
-  username: string,
-  email: string,
-) {
+async function addUser(username: string, email: string) {
   try {
-    const userCollection = collection(db, "UserCol");
-    const docRef = await addDoc(userCollection, {
+    // Check if auth.currentUser exists
+    if (!auth.currentUser) {
+      console.warn("No user currently signed in.");
+      return null; // Or handle this case as needed
+    }
+
+    // Use the user's UID as the document ID
+    const userDocRef = doc(db, "UserCol", auth.currentUser.uid);
+    await setDoc(userDocRef, { // Use setDoc to create/overwrite document
       username: username,
       email: email,
       createdAt: new Date().toISOString(),
     });
-    return docRef;
-  } catch (e : any){
-    console.error(e)
+    return userDocRef; // Return the document reference
+  } catch (e: any) {
+    console.error(e);
+    return null; // Or handle this case as needed
   }
 }
 
