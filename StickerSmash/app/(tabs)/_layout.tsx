@@ -6,80 +6,69 @@ import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 export default function TabsLayout() {
   return (
     <Tabs
-        screenOptions={{
-            headerShown: false, 
-            tabBarActiveTintColor: '#80ff00',
-            tabBarInactiveTintColor: '#ffff00',
-            // headerStyle: {
-            //     backgroundColor: '#25292e',
-            // },
-            headerShadowVisible: false,
-            headerTintColor: '#fff',
-            tabBarStyle: {
-                backgroundColor: '#e4a1a1',
-            },
-        }}
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#3B82F6', 
+        tabBarInactiveTintColor: '#6B7280', 
+        headerShadowVisible: false,
+        headerTintColor: '#111827', 
+        tabBarStyle: {
+          backgroundColor: '#F3F4F6', 
+        },
+      }}
     >
-
       <Tabs.Screen 
         name="Home" 
         options={{ 
           headerTitle: 'Discovery',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <Zocial 
-                name ={focused ? "eventasaurus" : "eventasaurus"} 
-                color={color}
-                size = {30} 
+              name="eventasaurus" 
+              color={color}
+              size={30} 
             />
           ),
-        }} />
+        }} 
+      />
       <Tabs.Screen 
         name="TrendingEvents" 
         options={{
           headerTitle: 'Favorites',
           tabBarIcon: ({ focused, color }) =>
             focused ? (
-              <Fontisto 
-                name="fire"
-                color={color} 
-                size={24}
-              />
+              <Fontisto name="fire" color={color} size={24} />
             ) : (
-              <SimpleLineIcons
-                name="fire"
-                color={color} 
-                size={24}
-              />
-            )
+              <SimpleLineIcons name="fire" color={color} size={24} />
+            ),
         }}
       />
       <Tabs.Screen 
         name="AddEvent" 
         options={{ 
           headerTitle: 'Add New Event',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <AntDesign 
-                name={focused ? 'pluscircle' : 'pluscircleo'} 
-                color={color} 
-                size={24}
+              name={focused ? 'pluscircle' : 'pluscircleo'} 
+              color={color} 
+              size={24}
             />
           ),
-        }} />
+        }} 
+      />
       <Tabs.Screen 
         name="Profile" 
         options={{ 
           headerTitle: 'Profile',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <FontAwesome5 
-                name={focused ? 'user-alt' : 'user'} 
-                color={color} 
-                size={24}
+              name={focused ? 'user-alt' : 'user'} 
+              color={color} 
+              size={24}
             />
           ),
-        }} />
-      <Tabs.Screen 
-        name="+not-found"
-        />
+        }} 
+      />
+      <Tabs.Screen name="+not-found" />
     </Tabs>
   );
 }

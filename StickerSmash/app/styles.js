@@ -4,7 +4,7 @@ const SharedStyles = StyleSheet.create({container: {
     flex: 1,
         // backgroundColor: '#ffdbe9',
         // backgroundColor: '#f7b36d',
-        backgroundColor: '#f5f5dc',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
         

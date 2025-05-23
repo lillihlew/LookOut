@@ -30,7 +30,7 @@ const PublicOrPrivate = ({selectedPrivacyOn, setSelectedPrivacyOn}: any) => {
         <View style = {styles.button}>
             <Button
                 label = {privacyLabel}
-                theme = {text}
+                theme={text as 'Public' | 'Private'}
                 onPress={() => {
                     togglePrivacySettings();
                     }}
