@@ -13,6 +13,7 @@ import { router } from 'expo-router';
 import DisplayEvent from '@/components/DisplayEvent';
 
 
+
 async function addEvent(
   selectedTitle: string,
   selectedDescription: string,
